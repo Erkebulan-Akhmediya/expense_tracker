@@ -1,13 +1,39 @@
+import 'package:expense_tracker/profile.dart';
+import 'package:expense_tracker/statistics.dart';
+import 'package:expense_tracker/wallet.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+import 'home.dart';
+
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentPageIndex = 0;
+
+  final List<Widget> _pages = [
+    const Home(),
+    const Statistics(),
+    const Wallet(),
+    const Profile(),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      body: _pages[_currentPageIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: _currentPageIndex,
+        onTap: (index) {
+          setState(() {
+            _currentPageIndex = index;
+          });
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_rounded),
@@ -21,10 +47,10 @@ class HomePage extends StatelessWidget {
             icon: Icon(Icons.wallet_rounded),
             label: 'Wallet',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.person_rounded),
-          //   label: 'Profile',
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_rounded),
+            label: 'Profile',
+          ),
         ],
       ),
     );
