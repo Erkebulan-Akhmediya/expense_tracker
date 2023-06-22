@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class Expense extends StatefulWidget {
   const Expense({
     super.key,
-    required this.imageUrl,
+    required this.categoryIcon,
     required this.name,
     required this.date,
     required this.amount,
   });
 
-  final String imageUrl;
+  final IconData categoryIcon;
   final String name;
   final String date;
   final int amount;
@@ -30,14 +30,14 @@ class _ExpenseState extends State<Expense> {
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.only(right: 10),
-                  child: Image(
-                    width: 60,
-                    height: 60,
-                    image: NetworkImage(widget.imageUrl),
+                  child: Icon(
+                    widget.categoryIcon,
+                    size: 60,
                   ),
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
                       widget.name,
