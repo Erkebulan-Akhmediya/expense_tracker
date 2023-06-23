@@ -14,7 +14,7 @@ class SignInSignUp extends StatelessWidget {
     return Scaffold(
       body: PageView(
         controller: _controller,
-        children: const <Widget>[
+        children: <Widget>[
           SignIn(),
           SignUp(),
         ],

@@ -1,21 +1,33 @@
-import 'package:expense_tracker/auth/signin_signup.dart';
-import 'package:expense_tracker/homepage.dart';
-import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class Auth extends StatelessWidget {
-  const Auth({super.key});
+class Auth {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  bool isAuth() {
-    return false;
+  User? get currentUser => _auth.currentUser;
+
+  Stream<User?> get authStateChanges => _auth.authStateChanges();
+
+  Future<void> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    await _auth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (isAuth() == true) {
-      return const HomePage();
-    } else {
-      return SignInSignUp();
-    }
+  Future<void> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    await _auth.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
   }
 
+  Future<void> signOut() async {
+    await _auth.signOut();
+  }
 }

@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
 
+import 'auth.dart';
+
 class SignUp extends StatelessWidget {
-  const SignUp({super.key});
+  SignUp({super.key});
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> createUserWithEmailAndPassword() async {
+    try {
+      await Auth().createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+    } catch (e) {
+      // TODO: implement error message
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +46,17 @@ class SignUp extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.mail_outline_rounded),
                     labelText: 'Email Address',
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.lock_outline_rounded),
                     labelText: 'Password',
                     border: OutlineInputBorder(),
@@ -58,7 +76,7 @@ class SignUp extends StatelessWidget {
                         style: const ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll(Colors.blue),
                         ),
-                        onPressed: () {},
+                        onPressed: createUserWithEmailAndPassword,
                         child:  const Text(
                           'Sign Up',
                           style: TextStyle(
