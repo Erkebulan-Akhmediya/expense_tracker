@@ -1,21 +1,61 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'auth.dart';
+import '../controllers/auth.controller.dart';
 
-class SignUp extends StatelessWidget {
-  SignUp({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
+  @override
+  State<SignUp> createState() => _SignUpState();
+
+}
+
+class _SignUpState extends State<SignUp> {
+  String? errorMessage = '';
+
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordVerificationController = TextEditingController();
 
   Future<void> createUserWithEmailAndPassword() async {
     try {
+      verifyPassword(
+        _passwordController.text,
+        _passwordVerificationController.text,
+      );
       await Auth().createUserWithEmailAndPassword(
+        username: _usernameController.text,
         email: _emailController.text,
         password: _passwordController.text,
       );
-    } catch (e) {
-      // TODO: implement error message
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
+
+  void verifyPassword(String firstPassword, String secondPassword) {
+    if (firstPassword != secondPassword) {
+      throw FirebaseAuthException(
+        code: 'operation-not-allowed',
+        message: 'Password Verification Failed',
+      );
+    }
+  }
+
+  Widget _error() {
+    if (errorMessage == '') {
+      return Container();
+    } else {
+      return Text(
+        errorMessage!,
+        style: const TextStyle(
+          color: Colors.red,
+        ),
+      );
     }
   }
 
@@ -46,6 +86,15 @@ class SignUp extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
+                _error(),
+                TextField(
+                  controller: _usernameController,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.person_rounded),
+                    labelText: 'Username',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
                 TextField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -62,8 +111,9 @@ class SignUp extends StatelessWidget {
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const TextField(
-                  decoration: InputDecoration(
+                TextField(
+                  controller: _passwordVerificationController,
+                  decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.lock_outline_rounded),
                     labelText: 'Verify Password',
                     border: OutlineInputBorder(),
@@ -99,5 +149,4 @@ class SignUp extends StatelessWidget {
       ),
     );
   }
-
 }

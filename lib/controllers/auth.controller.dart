@@ -1,6 +1,9 @@
+import 'package:expense_tracker/controllers/user.controller.dart';
+import 'package:expense_tracker/models/user.model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Auth {
+  final UserController _userController = UserController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   User? get currentUser => _auth.currentUser;
@@ -18,12 +21,20 @@ class Auth {
   }
 
   Future<void> createUserWithEmailAndPassword({
+    required String username,
     required String email,
     required String password,
   }) async {
     await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
+    );
+    await _userController.createUser(
+      UserModel(
+        username: username,
+        email: email,
+        password: password,
+      ),
     );
   }
 

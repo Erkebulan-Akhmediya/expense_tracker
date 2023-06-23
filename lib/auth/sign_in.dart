@@ -1,8 +1,17 @@
-import 'package:expense_tracker/auth/auth.dart';
+import 'package:expense_tracker/controllers/auth.controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatelessWidget {
-  SignIn({super.key});
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
+
+  @override
+  State<StatefulWidget> createState() => _SignInState();
+
+}
+
+class _SignInState extends State<SignIn> {
+  String? errorMessage = '';
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -13,8 +22,23 @@ class SignIn extends StatelessWidget {
         email: _emailController.text,
         password: _passwordController.text,
       );
-    } catch (e) {
-      // TODO: implement error message
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = 'Email or Password is invalid';
+      });
+    }
+  }
+
+  Widget _error() {
+    if (errorMessage == '') {
+      return Container();
+    } else {
+      return Text(
+        errorMessage!,
+        style: const TextStyle(
+          color: Colors.red,
+        ),
+      );
     }
   }
 
@@ -45,6 +69,7 @@ class SignIn extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
+                _error(),
                 TextField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -91,5 +116,4 @@ class SignIn extends StatelessWidget {
       ),
     );
   }
-
 }
