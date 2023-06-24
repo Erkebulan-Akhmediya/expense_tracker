@@ -2,7 +2,7 @@ import 'package:expense_tracker/controllers/user.controller.dart';
 import 'package:expense_tracker/models/user.model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Auth {
+class AuthController {
   final UserController _userController = UserController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 

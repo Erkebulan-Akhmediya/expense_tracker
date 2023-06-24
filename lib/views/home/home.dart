@@ -1,6 +1,6 @@
 import 'package:expense_tracker/controllers/auth.controller.dart';
 import 'package:expense_tracker/controllers/user.controller.dart';
-import 'package:expense_tracker/home/expense.dart';
+import 'package:expense_tracker/views/home/expense.dart';
 import 'package:expense_tracker/models/user.model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ class Home extends StatelessWidget {
   Home({super.key});
 
   final UserController _userController = UserController();
-  final User? user = Auth().currentUser;
+  final User? user = AuthController().currentUser;
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
-import 'package:expense_tracker/auth/sign_in.dart';
-import 'package:expense_tracker/auth/sign_up.dart';
+import 'package:expense_tracker/views/auth/sign_in.dart';
+import 'package:expense_tracker/views/auth/sign_up.dart';
 import 'package:flutter/material.dart';
 
 class SignInSignUp extends StatelessWidget {

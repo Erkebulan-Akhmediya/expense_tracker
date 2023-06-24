@@ -1,9 +1,9 @@
-import 'package:expense_tracker/profile.dart';
-import 'package:expense_tracker/statistics.dart';
-import 'package:expense_tracker/wallet.dart';
+import 'package:expense_tracker/views/profile.dart';
+import 'package:expense_tracker/views/statistics.dart';
+import 'package:expense_tracker/views/wallet.dart';
 import 'package:flutter/material.dart';
 
-import 'home/home.dart';
+import 'views/home/home.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

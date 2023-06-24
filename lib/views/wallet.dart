@@ -1,6 +1,9 @@
+import 'package:expense_tracker/controllers/expense.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+
+import '../models/expense.model.dart';
 
 class Wallet extends StatefulWidget {
   const Wallet({super.key});
@@ -11,7 +14,20 @@ class Wallet extends StatefulWidget {
 
 class _WalletState extends State<Wallet> {
   String _selectedCategory = 'Uncategorized';
-  TextEditingController dateInput = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+
+  Future<void> createExpense() async {
+    await ExpenseController().createExpense(
+      ExpenseModel(
+        category: _selectedCategory,
+        name: _nameController.text,
+        amount: double.parse(_amountController.text),
+        date: _dateController.text,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +41,8 @@ class _WalletState extends State<Wallet> {
           elevation: 10,
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           child: Container(
-            padding: const EdgeInsets.all(10.0),
-            height: 450,
+            padding: const EdgeInsets.all(15.0),
+            height: 550,
             width: 300,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -38,12 +54,12 @@ class _WalletState extends State<Wallet> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
+                      padding: const EdgeInsets.only(bottom: 7.0),
                       child: Text(
                         'CATEGORY',
                         style: GoogleFonts.inter(
                           textStyle: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 17,
                             fontWeight: FontWeight.w300
                           ),
                         ),
@@ -171,19 +187,20 @@ class _WalletState extends State<Wallet> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
+                      padding: const EdgeInsets.only(bottom: 7.0),
                       child: Text(
                         'NAME',
                         style: GoogleFonts.inter(
                           textStyle: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 17,
                               fontWeight: FontWeight.w300
                           ),
                         ),
                       ),
                     ),
-                    const TextField(
-                      decoration: InputDecoration(
+                    TextField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -193,19 +210,43 @@ class _WalletState extends State<Wallet> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
+                      padding: const EdgeInsets.only(bottom: 7.0),
                       child: Text(
-                        'DATE',
+                        'AMOUNT',
                         style: GoogleFonts.inter(
                           textStyle: const TextStyle(
-                              fontSize: 20,
+                              fontSize: 17,
                               fontWeight: FontWeight.w300
                           ),
                         ),
                       ),
                     ),
                     TextField(
-                      controller: dateInput,
+                      controller: _amountController,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 7.0),
+                      child: Text(
+                        'DATE',
+                        style: GoogleFonts.inter(
+                          textStyle: const TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.w300
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      controller: _dateController,
                       readOnly: true,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
@@ -221,7 +262,7 @@ class _WalletState extends State<Wallet> {
 
                         if (pickedDate != null) {
                           String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-                          dateInput.text = formattedDate;
+                          _dateController.text = formattedDate;
                         }
                       },
                     ),
@@ -230,7 +271,7 @@ class _WalletState extends State<Wallet> {
                 SizedBox(
                   width: 300,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: createExpense,
                     child: const Text(
                       'Add',
                       style: TextStyle(

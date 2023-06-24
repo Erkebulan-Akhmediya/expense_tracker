@@ -5,7 +5,7 @@ class Profile extends StatelessWidget {
   const Profile({super.key});
 
   Future<void> signOut() async {
-    await Auth().signOut();
+    await AuthController().signOut();
   }
 
   @override

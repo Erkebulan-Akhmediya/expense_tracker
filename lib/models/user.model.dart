@@ -3,8 +3,9 @@ class UserModel {
   final String username;
   final String email;
   final String password;
+  final List<String> expenses = [];
 
-  const UserModel({
+  UserModel({
     required this.id,
     required this.username,
     required this.email,
@@ -15,6 +16,7 @@ class UserModel {
     'username': username,
     'email': email,
     'password': password,
+    'expenses': [],
   };
 
   static UserModel fromMap(Map<String, dynamic> map) => UserModel(

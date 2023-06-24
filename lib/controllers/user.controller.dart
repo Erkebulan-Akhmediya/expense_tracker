@@ -23,4 +23,11 @@ class UserController {
 
     return docSnap;
   }
+
+  void addExpenseToUser(String? uid, String expenseId) {
+    DocumentReference docRef = _db.collection('Users').doc(uid);
+    docRef.update({
+      'expenses': FieldValue.arrayUnion([expenseId]),
+    });
+  }
 }

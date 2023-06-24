@@ -1,7 +1,7 @@
-import 'package:expense_tracker/home/today.dart';
+import 'package:expense_tracker/views/home/today.dart';
+import 'package:expense_tracker/views/home/week_month.dart';
 import 'package:flutter/material.dart';
 
-import 'week_month.dart';
 
 class Balance extends StatelessWidget {
   const Balance({super.key});

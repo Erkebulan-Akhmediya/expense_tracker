@@ -1,31 +1,48 @@
-import 'package:expense_tracker/controllers/auth.controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
-  const SignIn({super.key});
+import '../../controllers/auth.controller.dart';
+
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<StatefulWidget> createState() => _SignInState();
+  State<SignUp> createState() => _SignUpState();
 
 }
 
-class _SignInState extends State<SignIn> {
+class _SignUpState extends State<SignUp> {
   String? errorMessage = '';
 
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordVerificationController = TextEditingController();
 
-  Future<void> signInWithEmailAndPassword() async {
+  Future<void> createUserWithEmailAndPassword() async {
     try {
-      await Auth().signInWithEmailAndPassword(
+      verifyPassword(
+        _passwordController.text,
+        _passwordVerificationController.text,
+      );
+      await AuthController().createUserWithEmailAndPassword(
+        username: _usernameController.text,
         email: _emailController.text,
         password: _passwordController.text,
       );
     } on FirebaseAuthException catch (e) {
       setState(() {
-        errorMessage = 'Email or Password is invalid';
+        errorMessage = e.message;
       });
+    }
+  }
+
+  void verifyPassword(String firstPassword, String secondPassword) {
+    if (firstPassword != secondPassword) {
+      throw FirebaseAuthException(
+        code: 'operation-not-allowed',
+        message: 'Password Verification Failed',
+      );
     }
   }
 
@@ -50,7 +67,7 @@ class _SignInState extends State<SignIn> {
         borderRadius: const BorderRadius.all(Radius.circular(20.0)),
         child: Container(
           width: 300,
-          height: 400,
+          height: 500,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
@@ -60,16 +77,24 @@ class _SignInState extends State<SignIn> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 const Icon(
-                  Icons.login_rounded,
+                  Icons.app_registration_rounded,
                   size: 40,
                 ),
                 const Text(
-                  'Sign In',
+                  'Sign Up',
                   style: TextStyle(
                     fontSize: 20,
                   ),
                 ),
                 _error(),
+                TextField(
+                  controller: _usernameController,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.person_rounded),
+                    labelText: 'Username',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
                 TextField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -86,6 +111,14 @@ class _SignInState extends State<SignIn> {
                     border: OutlineInputBorder(),
                   ),
                 ),
+                TextField(
+                  controller: _passwordVerificationController,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.lock_outline_rounded),
+                    labelText: 'Verify Password',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
                 Row(
                   children: <Widget>[
                     Expanded(
@@ -93,20 +126,20 @@ class _SignInState extends State<SignIn> {
                         style: const ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll(Colors.blue),
                         ),
-                        onPressed: signInWithEmailAndPassword,
+                        onPressed: createUserWithEmailAndPassword,
                         child:  const Text(
-                          'Sign In',
+                          'Sign Up',
                           style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 const Row(
                   children: <Widget>[
-                    Text('Don\'t have an account? Swipe left'),
+                    Text('Already have an account? Swipe right')
                   ],
                 ),
               ],
