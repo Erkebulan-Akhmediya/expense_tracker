@@ -1,30 +1,51 @@
+import 'package:expense_tracker/controllers/auth.controller.dart';
+import 'package:expense_tracker/controllers/user.controller.dart';
 import 'package:expense_tracker/home/expense.dart';
+import 'package:expense_tracker/models/user.model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'balance.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
+  Home({super.key});
+
+  final UserController _userController = UserController();
+  final User? user = Auth().currentUser;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90,
-        title: const Column(
+        title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Good afternoon,',
               style: TextStyle(
                 fontSize: 12,
               ),
             ),
-            Text(
-              'Yerkebulan',
-              style: TextStyle(
-                fontSize: 30,
-              ),
+            StreamBuilder<UserModel>(
+              stream: _userController.getUsername(user?.uid),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(
+                    snapshot.data!.username,
+                    style: const TextStyle(
+                      fontSize: 30,
+                    ),
+                  );
+                } else {
+                  return const Text(
+                    'error',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  );
+                }
+              },
             ),
           ],
         ),

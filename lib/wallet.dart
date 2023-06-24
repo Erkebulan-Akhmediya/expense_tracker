@@ -10,7 +10,7 @@ class Wallet extends StatefulWidget {
 }
 
 class _WalletState extends State<Wallet> {
-  int _selectedCategory = 1;
+  String _selectedCategory = 'Uncategorized';
   TextEditingController dateInput = TextEditingController();
 
   @override
@@ -59,19 +59,106 @@ class _WalletState extends State<Wallet> {
                         isExpanded: true,
                         items: const [
                           DropdownMenuItem(
-                            value: 1,
-                            child: Text('1'),
+                            value: 'Uncategorized',
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.attach_money_rounded),
+                                Text('Uncategorized'),
+                              ],
+                            ),
                           ),
                           DropdownMenuItem(
-                            value: 2,
-                            child: Text('2'),
+                            value: 'Housing',
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.house_rounded),
+                                Text('Housing'),
+                              ],
+                            ),
                           ),
                           DropdownMenuItem(
-                            value: 3,
-                            child: Text('3'),
+                            value: 'Transportation',
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.emoji_transportation_rounded),
+                                Text('Transportation'),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Food',
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.fastfood_rounded),
+                                Text('Food'),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Health and Medical',
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.add_box_rounded),
+                                Text('Health and Medical'),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Personal Care',
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.person_rounded),
+                                Text('Personal Care'),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Entertainment',
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.attractions_rounded),
+                                Text('Entertainment'),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Debt Payments',
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.money_off_csred_rounded),
+                                Text('Debt Payments'),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Education',
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.menu_book),
+                                Text('Education'),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Clothing and Accessories',
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.checkroom_rounded),
+                                Text('Clothing and Accessories'),
+                              ],
+                            ),
+                          ),
+                          DropdownMenuItem(
+                            value: 'Savings and Investments',
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.savings_outlined),
+                                Text('Savings and Investments'),
+                              ],
+                            ),
                           ),
                         ],
-                        onChanged: (int? selectedValue) {
+                        onChanged: (String? selectedValue) {
                           setState(() {
                             _selectedCategory = selectedValue!;
                           });

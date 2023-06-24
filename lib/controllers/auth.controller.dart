@@ -31,6 +31,7 @@ class Auth {
     );
     await _userController.createUser(
       UserModel(
+        id: currentUser!.uid,
         username: username,
         email: email,
         password: password,
