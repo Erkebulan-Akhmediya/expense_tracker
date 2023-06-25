@@ -3,20 +3,21 @@ class UserModel {
   final String username;
   final String email;
   final String password;
-  final List<String> expenses = [];
+  final List<dynamic> expenses;
 
   UserModel({
     required this.id,
     required this.username,
     required this.email,
     required this.password,
+    required this.expenses,
   });
 
   Map<String, dynamic> toMap() => {
     'username': username,
     'email': email,
     'password': password,
-    'expenses': [],
+    'expenses': expenses,
   };
 
   static UserModel fromMap(Map<String, dynamic> map) => UserModel(
@@ -24,5 +25,6 @@ class UserModel {
     username: map['username'],
     email: map['email'],
     password: map['password'],
+    expenses: map['expenses'],
   );
 }

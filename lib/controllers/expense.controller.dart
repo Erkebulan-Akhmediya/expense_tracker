@@ -13,4 +13,18 @@ class ExpenseController {
     DocumentReference docRef = await _db.collection('Expenses').add(expense.toMap());
     _userController.addExpenseToUser(AuthController().currentUser?.uid, docRef.id);
   }
+
+  getExpense(String id) {
+    DocumentReference expense = _db.collection('Expenses').doc(id);
+  }
+
+  Stream<List<dynamic>> getUserExpenses(String uid) {
+    DocumentReference user = _db.collection('Users').doc(uid);
+    Stream<List<dynamic>> expenses = user.snapshots().map((snapshot) {
+      snapshot['expenses'];
+      return snapshot['expenses'];
+    });
+
+    return expenses;
+  }
 }

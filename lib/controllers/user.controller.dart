@@ -18,6 +18,7 @@ class UserController {
         username: snapshot['username'],
         email: snapshot['email'],
         password: snapshot['password'],
+        expenses: snapshot['expenses'],
       ),
     );
 

@@ -1,4 +1,5 @@
 import 'package:expense_tracker/controllers/auth.controller.dart';
+import 'package:expense_tracker/controllers/expense.controller.dart';
 import 'package:expense_tracker/controllers/user.controller.dart';
 import 'package:expense_tracker/views/home/expense.dart';
 import 'package:expense_tracker/models/user.model.dart';
@@ -11,7 +12,12 @@ class Home extends StatelessWidget {
   Home({super.key});
 
   final UserController _userController = UserController();
+  final ExpenseController _expenseController = ExpenseController();
   final User? user = AuthController().currentUser;
+
+  getUserExpenses(String uid) {
+    return _expenseController.getUserExpenses(uid);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,31 +74,23 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-          const Column(
+          Column(
             children: <Widget>[
-              Expense(
-                categoryIcon: Icons.attach_money_rounded,
-                name: 'Netflix',
-                date: 'Yesterday',
-                amount: 700,
-              ),
-              Expense(
-                categoryIcon: Icons.attach_money_rounded,
-                name: 'PayPal',
-                date: '21 Jun, 2023',
-                amount: 1500,
-              ),
-              Expense(
-                categoryIcon: Icons.attach_money_rounded,
-                name: 'Shopify',
-                date: '12 Jun, 2023',
-                amount: 1000,
-              ),
-              Expense(
-                categoryIcon: Icons.attach_money_rounded,
-                name: 'Shopify',
-                date: '01 Jun, 2023',
-                amount: 1200,
+              StreamBuilder<List<dynamic>>(
+                stream: getUserExpenses(user!.uid),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    String? data = snapshot.data?[0].toString();
+                    return Expense(
+                      category: 'Uncategorized',
+                      name: data.toString().substring(7),
+                      date: 'Yesterday',
+                      amount: 700,
+                    );
+                  } else {
+                    return const Text('no expenses yet');
+                  }
+                },
               ),
             ],
           ),

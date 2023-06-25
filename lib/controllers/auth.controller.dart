@@ -35,6 +35,7 @@ class AuthController {
         username: username,
         email: email,
         password: password,
+        expenses: [],
       ),
     );
   }

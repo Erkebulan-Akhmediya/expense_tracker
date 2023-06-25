@@ -120,28 +120,28 @@ class Statistics extends StatelessWidget {
                       ),
                     ),
                     const Text('Top Spending'),
-                    const Column(
+                    Column(
                       children: <Widget>[
                         Expense(
-                          categoryIcon: Icons.attach_money_rounded,
+                          category: 'Health and Medical',
                           name: 'Cinema',
                           date: '21-09-2023',
                           amount: 100,
                         ),
                         Expense(
-                          categoryIcon: Icons.attach_money_rounded,
+                          category: 'Personal Care',
                           name: 'Dinner',
                           date: '20-09-2023',
                           amount: 100,
                         ),
                         Expense(
-                          categoryIcon: Icons.attach_money_rounded,
+                          category: 'Entertainment',
                           name: 'Skiing',
                           date: '19-09-2023',
                           amount: 100,
                         ),
                         Expense(
-                          categoryIcon: Icons.attach_money_rounded,
+                          category: 'Debt Payments',
                           name: 'Hiking',
                           date: '18-09-2023',
                           amount: 100,
