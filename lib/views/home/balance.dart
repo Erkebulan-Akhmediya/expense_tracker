@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 
 
 class Balance extends StatelessWidget {
-  const Balance({super.key});
+  const Balance({super.key, required this.today});
+
+  final double today;
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +19,12 @@ class Balance extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(20)),
           color: Colors.blue,
         ),
-        child: const Column(
+        child: Column(
           children: [
-            Today(),
-            WeekMonth(),
+            Today(
+              amount: today,
+            ),
+            const WeekMonth(),
           ],
         ),
       ),

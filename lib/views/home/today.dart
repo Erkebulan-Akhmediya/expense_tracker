@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Today extends StatelessWidget {
-  const Today({super.key});
+  const Today({super.key, required this.amount});
+
+  final double amount;
 
   @override
   Widget build(BuildContext context) {
@@ -10,14 +12,14 @@ class Today extends StatelessWidget {
         child: Container(
           alignment: Alignment.topLeft,
           padding: const EdgeInsets.only(left: 15),
-          child: const Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Today'),
+              const Text('Today'),
               Text(
-                '\$500',
-                style: TextStyle(
+                '\$$amount',
+                style: const TextStyle(
                   fontSize: 45,
                 ),
               ),

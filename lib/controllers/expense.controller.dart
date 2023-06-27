@@ -27,4 +27,24 @@ class ExpenseController {
 
     return expenses;
   }
+
+  Future<List<ExpenseModel>> getExpenses(List expenses) async {
+    CollectionReference expenseCollection = _db.collection('Expenses');
+    List<ExpenseModel> expenseModelList = [];
+
+    for (dynamic expense in expenses) {
+      DocumentSnapshot snapshot = await expenseCollection.doc(
+        expense.toString(),
+      ).get();
+      ExpenseModel expenseModel = ExpenseModel(
+        category: snapshot['category'],
+        name: snapshot['name'],
+        amount: snapshot['amount'],
+        date: snapshot['date'],
+      );
+      expenseModelList.add(expenseModel);
+    }
+
+    return expenseModelList;
+  }
 }

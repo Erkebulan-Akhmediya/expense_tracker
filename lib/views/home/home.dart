@@ -6,6 +6,7 @@ import 'package:expense_tracker/models/user.model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/expense.model.dart';
 import 'balance.dart';
 
 class Home extends StatelessWidget {
@@ -15,8 +16,45 @@ class Home extends StatelessWidget {
   final ExpenseController _expenseController = ExpenseController();
   final User? user = AuthController().currentUser;
 
-  getUserExpenses(String uid) {
+  Stream<List<dynamic>> getUserExpenses(String uid) {
     return _expenseController.getUserExpenses(uid);
+  }
+
+  Future<List<ExpenseModel>> getExpenses(List expenses) {
+    return _expenseController.getExpenses(expenses);
+  }
+
+  List<Widget> last4Expenses(List<ExpenseModel> list) {
+    ExpenseModel temp;
+    bool swapped;
+    for (var i = 0; i < list.length-1; i++) {
+      swapped = false;
+      for (var j = 0; j < list.length - i - 1; j++) {
+        if (DateTime.parse(list[j+1].date).isBefore(DateTime.parse(list[j].date))) {
+          temp = list[j];
+          list[j] = list[j+1];
+          list[j+1] = temp;
+          swapped = true;
+        }
+      }
+      if (swapped == false) break;
+    }
+
+    int n = list.length-1;
+    List<Widget> widgets = [];
+    for (int i = 0; i < 4; i++) {
+      if (n - i >= 0) {
+        widgets.add(
+          Expense(
+            category: list[n-i].category,
+            name: list[n-i].name,
+            date: list[n-i].date,
+            amount: list[n-i].amount,
+          ),
+        );
+      }
+    }
+    return widgets;
   }
 
   @override
@@ -59,7 +97,7 @@ class Home extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: <Widget>[
-          const Balance(),
+          const Balance(today: 228,),
           Container(
             margin: const EdgeInsets.only(
               top: 30,
@@ -74,25 +112,28 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            children: <Widget>[
-              StreamBuilder<List<dynamic>>(
-                stream: getUserExpenses(user!.uid),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    String? data = snapshot.data?[0].toString();
-                    return Expense(
-                      category: 'Uncategorized',
-                      name: data.toString().substring(7),
-                      date: 'Yesterday',
-                      amount: 700,
-                    );
-                  } else {
-                    return const Text('no expenses yet');
-                  }
-                },
-              ),
-            ],
+          StreamBuilder(
+            stream: getUserExpenses(user!.uid),
+            builder: (context, snapshot) {
+              List<dynamic>? expenses = snapshot.data;
+              if (snapshot.hasData) {
+                return FutureBuilder(
+                  future: getExpenses(expenses!),
+                  builder: (context, snapshot) {
+                    if (snapshot.data!.isNotEmpty) {
+                      List<ExpenseModel>? data = snapshot.data;
+                      return Column(
+                        children: last4Expenses(data!),
+                      );
+                    } else {
+                      return const Text('There is no expenses yet');
+                    }
+                  },
+                );
+              } else {
+                return const Text('There is no expenses yet');
+              }
+            },
           ),
         ],
       ),

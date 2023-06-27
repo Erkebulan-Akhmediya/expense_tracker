@@ -12,7 +12,7 @@ class Expense extends StatefulWidget {
   final String category;
   final String name;
   final String date;
-  final int amount;
+  final double amount;
 
   Map<String, IconData> icons = {
     'Uncategorized': Icons.attach_money_rounded,
