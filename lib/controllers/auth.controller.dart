@@ -1,8 +1,9 @@
 import 'package:expense_tracker/controllers/user.controller.dart';
 import 'package:expense_tracker/models/user.model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
-class AuthController {
+class AuthController extends GetxController {
   final UserController _userController = UserController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 

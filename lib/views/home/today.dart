@@ -1,9 +1,30 @@
+import 'package:expense_tracker/controllers/expense.controller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class Today extends StatelessWidget {
-  const Today({super.key, required this.amount});
+import '../../controllers/auth.controller.dart';
 
-  final double amount;
+class Today extends StatefulWidget {
+  const Today({super.key});
+
+  @override
+  State<Today> createState() => _TodayState();
+
+}
+
+class _TodayState extends State<Today> {
+  late Future<List> expenses;
+
+  final ExpenseController _expenseController = Get.put(ExpenseController());
+  final User? user = Get.put(AuthController()).currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+    expenses = _expenseController.getUserExpenses(user!.uid);
+    _expenseController.todayExpenses(expenses);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +38,24 @@ class Today extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text('Today'),
-              Text(
-                '\$$amount',
-                style: const TextStyle(
-                  fontSize: 45,
-                ),
+              FutureBuilder<double>(
+                future: _expenseController.todayExpenses(expenses),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Text(
+                      '\$${snapshot.data}',
+                      style: const TextStyle(
+                        fontSize: 45,
+                      ),
+                    );
+                  } else {
+                    return const Text('no data');
+                  }
+                },
               ),
             ],
           ),
         )
     );
   }
-
 }

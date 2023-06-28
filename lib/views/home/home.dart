@@ -1,60 +1,32 @@
 import 'package:expense_tracker/controllers/auth.controller.dart';
 import 'package:expense_tracker/controllers/expense.controller.dart';
 import 'package:expense_tracker/controllers/user.controller.dart';
-import 'package:expense_tracker/views/home/expense.dart';
 import 'package:expense_tracker/models/user.model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import '../../models/expense.model.dart';
 import 'balance.dart';
 
-class Home extends StatelessWidget {
-  Home({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
-  final UserController _userController = UserController();
-  final ExpenseController _expenseController = ExpenseController();
-  final User? user = AuthController().currentUser;
+  @override
+  State<Home> createState() => _HomeState();
 
-  Stream<List<dynamic>> getUserExpenses(String uid) {
-    return _expenseController.getUserExpenses(uid);
-  }
+}
 
-  Future<List<ExpenseModel>> getExpenses(List expenses) {
-    return _expenseController.getExpenses(expenses);
-  }
+class _HomeState extends State<Home> {
+  final UserController _userController = Get.put(UserController());
+  final ExpenseController _expenseController = Get.put(ExpenseController());
+  final User? user = Get.put(AuthController()).currentUser;
 
-  List<Widget> last4Expenses(List<ExpenseModel> list) {
-    ExpenseModel temp;
-    bool swapped;
-    for (var i = 0; i < list.length-1; i++) {
-      swapped = false;
-      for (var j = 0; j < list.length - i - 1; j++) {
-        if (DateTime.parse(list[j+1].date).isBefore(DateTime.parse(list[j].date))) {
-          temp = list[j];
-          list[j] = list[j+1];
-          list[j+1] = temp;
-          swapped = true;
-        }
-      }
-      if (swapped == false) break;
-    }
+  late Future<List> expenses;
 
-    int n = list.length-1;
-    List<Widget> widgets = [];
-    for (int i = 0; i < 4; i++) {
-      if (n - i >= 0) {
-        widgets.add(
-          Expense(
-            category: list[n-i].category,
-            name: list[n-i].name,
-            date: list[n-i].date,
-            amount: list[n-i].amount,
-          ),
-        );
-      }
-    }
-    return widgets;
+  @override
+  void initState() {
+    super.initState();
+    expenses = _expenseController.getUserExpenses(user!.uid);
   }
 
   @override
@@ -97,7 +69,7 @@ class Home extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20),
         children: <Widget>[
-          const Balance(today: 228,),
+          const Balance(),
           Container(
             margin: const EdgeInsets.only(
               top: 30,
@@ -112,18 +84,16 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-          StreamBuilder(
-            stream: getUserExpenses(user!.uid),
+          FutureBuilder(
+            future: expenses,
             builder: (context, snapshot) {
-              List<dynamic>? expenses = snapshot.data;
               if (snapshot.hasData) {
                 return FutureBuilder(
-                  future: getExpenses(expenses!),
+                  future: _expenseController.getExpenses(snapshot.data!),
                   builder: (context, snapshot) {
-                    if (snapshot.data!.isNotEmpty) {
-                      List<ExpenseModel>? data = snapshot.data;
+                    if (snapshot.hasData) {
                       return Column(
-                        children: last4Expenses(data!),
+                        children: _expenseController.last4Expenses(snapshot.data!),
                       );
                     } else {
                       return const Text('There is no expenses yet');
@@ -139,5 +109,4 @@ class Home extends StatelessWidget {
       ),
     );
   }
-
 }

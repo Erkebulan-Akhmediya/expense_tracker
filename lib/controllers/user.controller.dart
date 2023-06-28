@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_tracker/models/user.model.dart';
+import 'package:get/get.dart';
 
-class UserController {
+class UserController extends GetxController {
   UserController();
 
   final _db = FirebaseFirestore.instance;
