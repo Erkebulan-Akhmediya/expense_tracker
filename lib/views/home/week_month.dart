@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skeletons/skeletons.dart';
 
 import '../../controllers/auth.controller.dart';
 import '../../controllers/expense.controller.dart';
@@ -51,7 +52,23 @@ class _WeekMonthState extends State<WeekMonth> {
                           ),
                         );
                       } else {
-                        return const Text('error');
+                        return SkeletonTheme(
+                          shimmerGradient: LinearGradient(
+                            colors: [
+                              Colors.blue.shade400,
+                              Colors.blue.shade600,
+                            ],
+                          ),
+                          child: SkeletonParagraph(
+                            style: const SkeletonParagraphStyle(
+                              lines: 1,
+                              lineStyle: SkeletonLineStyle(
+                                height: 20,
+                                width: 100,
+                              ),
+                            ),
+                          ),
+                        );
                       }
                     },
                   ),
@@ -79,7 +96,28 @@ class _WeekMonthState extends State<WeekMonth> {
                           ),
                         );
                       } else {
-                        return const Text('error');
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            SkeletonTheme(
+                              shimmerGradient: LinearGradient(
+                                colors: [
+                                  Colors.blue.shade400,
+                                  Colors.blue.shade600,
+                                ],
+                              ),
+                              child: SkeletonParagraph(
+                                style: const SkeletonParagraphStyle(
+                                  lines: 1,
+                                  lineStyle: SkeletonLineStyle(
+                                    height: 20,
+                                    width: 100,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
                       }
                     },
                   ),

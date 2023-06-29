@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_tracker/controllers/auth.controller.dart';
 import 'package:expense_tracker/controllers/user.controller.dart';
 import 'package:expense_tracker/models/expense.model.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -137,6 +138,44 @@ class ExpenseController extends GetxController {
             }
           }
           return sum;
+        },
+      ),
+    );
+  }
+
+  Future<List<FlSpot>> weeklyStats(Future<List> expenses) {
+    List<double> amounts = [0, 0, 0, 0, 0, 0, 0];
+    int index = 0;
+
+    DateTime now = DateTime.now();
+    DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
+    DateTime endOfWeek = startOfWeek.add(const Duration(days: 7));
+
+    return expenses.then(
+      (list) => getExpenses(list).then(
+        (expenseModels) {
+          while (startOfWeek.isBefore(endOfWeek)) {
+
+            for (ExpenseModel expense in expenseModels) {
+              DateTime targetDate = DateTime.parse(expense.date);
+              DateTime compareDate = DateTime.parse(DateFormat('yyyy-MM-dd').format(startOfWeek));
+              if (targetDate.compareTo(compareDate) == 0) {
+                amounts[index] += expense.amount;
+              }
+            }
+
+            index++;
+            startOfWeek = startOfWeek.add(const Duration(days: 1));
+          }
+          return [
+            FlSpot(0, amounts[0]),
+            FlSpot(1, amounts[1]),
+            FlSpot(2, amounts[2]),
+            FlSpot(3, amounts[3]),
+            FlSpot(4, amounts[4]),
+            FlSpot(5, amounts[5]),
+            FlSpot(6, amounts[6]),
+          ];
         },
       ),
     );

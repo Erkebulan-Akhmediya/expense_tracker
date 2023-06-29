@@ -2,6 +2,7 @@ import 'package:expense_tracker/controllers/expense.controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:skeletons/skeletons.dart';
 
 import '../../controllers/auth.controller.dart';
 
@@ -48,7 +49,23 @@ class _TodayState extends State<Today> {
                     ),
                   );
                 } else {
-                  return const Text('no data');
+                  return SkeletonTheme(
+                    shimmerGradient: LinearGradient(
+                      colors: [
+                        Colors.blue.shade400,
+                        Colors.blue.shade600,
+                      ],
+                    ),
+                    child: SkeletonParagraph(
+                      style: const SkeletonParagraphStyle(
+                        lines: 1,
+                        lineStyle: SkeletonLineStyle(
+                          height: 36,
+                          width: 140,
+                        ),
+                      ),
+                    ),
+                  );
                 }
               },
             ),

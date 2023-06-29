@@ -96,12 +96,16 @@ class _HomeState extends State<Home> {
                         children: _expenseController.last4Expenses(snapshot.data!),
                       );
                     } else {
-                      return const Text('There is no expenses yet');
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
                     }
                   },
                 );
               } else {
-                return const Text('There is no expenses yet');
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
               }
             },
           ),
