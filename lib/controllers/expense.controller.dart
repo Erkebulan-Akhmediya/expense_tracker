@@ -20,14 +20,9 @@ class ExpenseController extends GetxController {
   }
 
   Future<List> getUserExpenses(String uid) async {
-    Stream<List> stream = _db.collection('Users').doc(uid).snapshots().map(
-      (snapshot) => snapshot['expenses'],
-    );
-
     Future<List> future = _db.collection('Users').doc(uid).get().then(
       (snapshot) => snapshot['expenses'],
     );
-
     return future;
   }
 
@@ -100,4 +95,51 @@ class ExpenseController extends GetxController {
       ),
     );
   }
+
+  Future<double> thisWeek(Future<List> expenses) {
+    double sum = 0;
+
+    DateTime now = DateTime.now();
+    DateTime startOfWeek = now.subtract(Duration(days: now.weekday - 1));
+    DateTime endOfWeek = startOfWeek.add(const Duration(days: 6));
+
+    return expenses.then(
+      (list) => getExpenses(list).then(
+        (expenseModels) {
+          for (ExpenseModel expense in expenseModels) {
+            DateTime targetDate = DateTime.parse(expense.date);
+            bool isInWeek = targetDate.isAfter(startOfWeek) && targetDate.isBefore(endOfWeek);
+            if (isInWeek == true) {
+              sum = sum + expense.amount;
+            }
+          }
+          return sum;
+        }
+      ),
+    );
+  }
+
+  Future<double> thisMonth(Future<List> expenses) {
+    double sum = 0;
+
+    DateTime now = DateTime.now();
+    DateTime firstDayOfMonth = DateTime(now.year, now.month, 1);
+    DateTime lastDayOfMonth = DateTime(now.year, now.month + 1, 0);
+
+    return expenses.then(
+      (list) => getExpenses(list).then(
+        (expenseModels) {
+          for (ExpenseModel expense in expenseModels) {
+            DateTime targetDate = DateTime.parse(expense.date);
+            bool isInMonth = targetDate.isAfter(firstDayOfMonth) && targetDate.isBefore(lastDayOfMonth);
+            if (isInMonth == true) {
+              sum = sum + expense.amount;
+            }
+          }
+          return sum;
+        },
+      ),
+    );
+  }
+
 }

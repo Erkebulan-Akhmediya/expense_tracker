@@ -23,39 +23,38 @@ class _TodayState extends State<Today> {
   void initState() {
     super.initState();
     expenses = _expenseController.getUserExpenses(user!.uid);
-    _expenseController.todayExpenses(expenses);
   }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        flex: 1,
-        child: Container(
-          alignment: Alignment.topLeft,
-          padding: const EdgeInsets.only(left: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text('Today'),
-              FutureBuilder<double>(
-                future: _expenseController.todayExpenses(expenses),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return Text(
-                      '\$${snapshot.data}',
-                      style: const TextStyle(
-                        fontSize: 45,
-                      ),
-                    );
-                  } else {
-                    return const Text('no data');
-                  }
-                },
-              ),
-            ],
-          ),
-        )
+      flex: 1,
+      child: Container(
+        alignment: Alignment.topLeft,
+        padding: const EdgeInsets.only(left: 15),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Today'),
+            FutureBuilder<double>(
+              future: _expenseController.todayExpenses(expenses),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return Text(
+                    '\$${snapshot.data}',
+                    style: const TextStyle(
+                      fontSize: 45,
+                    ),
+                  );
+                } else {
+                  return const Text('no data');
+                }
+              },
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
