@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expense_tracker/controllers/auth.controller.dart';
 import 'package:expense_tracker/controllers/user.controller.dart';
 import 'package:expense_tracker/models/expense.model.dart';
+import 'package:expense_tracker/views/statictics/category.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -179,6 +180,48 @@ class ExpenseController extends GetxController {
         },
       ),
     );
+  }
+
+  List<Widget> top4Categories(List<ExpenseModel> expenses) {
+    Map<String, double> categories = {
+      'Uncategorized': 0,
+      'Housing': 0,
+      'Transportation': 0,
+      'Food': 0,
+      'Health and Medical': 0,
+      'Personal Care': 0,
+      'Entertainment': 0,
+      'Debt Payments': 0,
+      'Education': 0,
+      'Clothing and Accessories': 0,
+      'Savings and Investments': 0,
+    };
+
+    List<Widget> widgets = [];
+
+    // calculating categories
+    for (String category in categories.keys) {
+      for (ExpenseModel expense in expenses) {
+        if (expense.category == category) {
+          categories[category] = categories[category]! + expense.amount;
+        }
+      }
+    }
+
+    // sorting categories
+    List<MapEntry<String, double>> entries = categories.entries.toList();
+    entries.sort((a, b) => b.value.compareTo(a.value));
+    List<MapEntry<String, double>> first4Categories = entries.sublist(0, 4);
+
+    for (MapEntry<String, double> entry in first4Categories) {
+      widgets.add(
+        Category(
+          category: entry.key,
+          amount: entry.value,
+        ),
+      );
+    }
+    return widgets;
   }
 
 }

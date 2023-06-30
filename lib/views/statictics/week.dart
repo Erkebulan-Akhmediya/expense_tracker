@@ -1,11 +1,11 @@
 import 'package:expense_tracker/controllers/expense.controller.dart';
+import 'package:expense_tracker/views/statictics/category.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/auth.controller.dart';
-import '../home/expense.dart';
 
 class Week extends StatefulWidget {
   const Week({super.key});
@@ -60,85 +60,85 @@ class _WeekState extends State<Week> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return LineChart(
-                      LineChartData(
-                        minX: 0,
-                        minY: 0,
-                        maxX: 6,
-                        maxY: maxSpentDay(snapshot.data!),
-                        titlesData: FlTitlesData(
-                          show: true,
-                          rightTitles: const AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          topTitles: const AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          leftTitles: const AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          bottomTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: true,
-                              interval: 1,
-                              getTitlesWidget: (double value, TitleMeta meta) {
-                                String text;
+                    LineChartData(
+                      minX: 0,
+                      minY: 0,
+                      maxX: 6,
+                      maxY: maxSpentDay(snapshot.data!),
+                      titlesData: FlTitlesData(
+                        show: true,
+                        rightTitles: const AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        topTitles: const AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        leftTitles: const AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            interval: 1,
+                            getTitlesWidget: (double value, TitleMeta meta) {
+                              String text;
 
-                                switch (value.toInt()) {
-                                  case 0:
-                                    text = 'Mon';
-                                    break;
-                                  case 1:
-                                    text = 'Tue';
-                                    break;
-                                  case 2:
-                                    text = 'Wed';
-                                    break;
-                                  case 3:
-                                    text = 'Thu';
-                                    break;
-                                  case 4:
-                                    text = 'Fri';
-                                    break;
-                                  case 5:
-                                    text = 'Sat';
-                                    break;
-                                  case 6:
-                                    text = 'Sun';
-                                    break;
-                                  default:
-                                    return Container();
-                                }
+                              switch (value.toInt()) {
+                                case 0:
+                                  text = 'Mon';
+                                  break;
+                                case 1:
+                                  text = 'Tue';
+                                  break;
+                                case 2:
+                                  text = 'Wed';
+                                  break;
+                                case 3:
+                                  text = 'Thu';
+                                  break;
+                                case 4:
+                                  text = 'Fri';
+                                  break;
+                                case 5:
+                                  text = 'Sat';
+                                  break;
+                                case 6:
+                                  text = 'Sun';
+                                  break;
+                                default:
+                                  return Container();
+                              }
 
-                                return Text(text);
-                              },
+                              return Text(text);
+                            },
+                          ),
+                        ),
+                      ),
+                      gridData: const FlGridData(
+                        show: false,
+                      ),
+                      borderData: FlBorderData(
+                        show: false,
+                      ),
+                      lineBarsData: [
+                        LineChartBarData(
+                          isCurved: false,
+                          spots: snapshot.data!,
+                          belowBarData: BarAreaData(
+                            show: true,
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              stops: const [0.9, 1],
+                              colors: [
+                                Colors.blue.shade100,
+                                Colors.white,
+                              ],
                             ),
                           ),
                         ),
-                        gridData: const FlGridData(
-                          show: false,
-                        ),
-                        borderData: FlBorderData(
-                          show: false,
-                        ),
-                        lineBarsData: [
-                          LineChartBarData(
-                            isCurved: false,
-                            spots: snapshot.data!,
-                            belowBarData: BarAreaData(
-                              show: true,
-                              gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                stops: const [0.9, 1],
-                                colors: [
-                                  Colors.blue.shade100,
-                                  Colors.white,
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      )
+                      ],
+                    ),
                   );
                 } else {
                   return const Center(
@@ -148,34 +148,31 @@ class _WeekState extends State<Week> {
               },
             ),
           ),
-          const Text('Top Spending'),
-          Column(
-            children: <Widget>[
-              Expense(
-                category: 'Health and Medical',
-                name: 'Cinema',
-                date: '21-09-2023',
-                amount: 100,
-              ),
-              Expense(
-                category: 'Personal Care',
-                name: 'Dinner',
-                date: '20-09-2023',
-                amount: 100,
-              ),
-              Expense(
-                category: 'Entertainment',
-                name: 'Skiing',
-                date: '19-09-2023',
-                amount: 100,
-              ),
-              Expense(
-                category: 'Debt Payments',
-                name: 'Hiking',
-                date: '18-09-2023',
-                amount: 100,
-              ),
-            ],
+          const Text('Top Spending Categories'),
+          FutureBuilder(
+            future: expenses,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return FutureBuilder(
+                  future: _expenseController.getExpenses(snapshot.data!),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return Column(
+                        children: _expenseController.top4Categories(snapshot.data!),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
           ),
         ],
       ),

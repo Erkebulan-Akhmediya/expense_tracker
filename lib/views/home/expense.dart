@@ -70,7 +70,7 @@ class _ExpenseState extends State<Expense> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
-                  '${widget.amount}\$',
+                  '\$${widget.amount}',
                   style: const TextStyle(
                     fontSize: 20,
                   ),

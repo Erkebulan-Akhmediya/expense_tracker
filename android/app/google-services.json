@@ -29,6 +29,13 @@
             {
               "client_id": "910797157772-hrvfeb8clajjvace3lm210goadkf2qia.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "910797157772-5isq3ns44ubnufgcu10jns6r026k6f3u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.expenseTracker"
+              }
             }
           ]
         }
