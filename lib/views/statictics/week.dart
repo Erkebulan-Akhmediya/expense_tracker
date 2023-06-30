@@ -1,5 +1,4 @@
 import 'package:expense_tracker/controllers/expense.controller.dart';
-import 'package:expense_tracker/views/statictics/category.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -158,7 +157,7 @@ class _WeekState extends State<Week> {
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
                       return Column(
-                        children: _expenseController.top4Categories(snapshot.data!),
+                        children: _expenseController.top4WeeklyCategories(snapshot.data!),
                       );
                     } else {
                       return const Center(

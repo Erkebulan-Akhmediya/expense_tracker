@@ -1,6 +1,5 @@
-import 'package:expense_tracker/views/home/expense.dart';
+import 'package:expense_tracker/views/statictics/month.dart';
 import 'package:expense_tracker/views/statictics/week.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class Statistics extends StatelessWidget {
@@ -24,7 +23,7 @@ class Statistics extends StatelessWidget {
           body: const TabBarView(
             children: [
               Week(),
-              Text('2'),
+              Month(),
               Text('3'),
             ],
           ),
