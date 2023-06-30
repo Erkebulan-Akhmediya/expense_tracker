@@ -261,11 +261,95 @@ class ExpenseController extends GetxController {
 
           return [
             for (int i = 0; i < daysInMonth; i++)
-              FlSpot(i.toDouble(), amounts[i])
+              FlSpot(i.toDouble()+1, amounts[i])
           ];
         },
       ),
     );
   }
+
+  List<Widget> top4MonthlyCategories(List<ExpenseModel> expenses) {
+    Map<String, double> categories = {
+      'Uncategorized': 0,
+      'Housing': 0,
+      'Transportation': 0,
+      'Food': 0,
+      'Health and Medical': 0,
+      'Personal Care': 0,
+      'Entertainment': 0,
+      'Debt Payments': 0,
+      'Education': 0,
+      'Clothing and Accessories': 0,
+      'Savings and Investments': 0,
+    };
+
+    List<Widget> widgets = [];
+
+    DateTime now = DateTime.now();
+    DateTime firstDayOfMonth = DateTime(now.year, now.month, 1);
+    DateTime lastDayOfMonth = DateTime(now.year, now.month + 1, 0);
+
+    // calculating categories
+    for (String category in categories.keys) {
+      for (ExpenseModel expense in expenses) {
+        DateTime targetDate = DateTime.parse(expense.date);
+        bool isInMonth = targetDate.isAfter(firstDayOfMonth) &&
+            targetDate.isBefore(lastDayOfMonth);
+
+        if (expense.category == category && isInMonth == true) {
+          categories[category] = categories[category]! + expense.amount;
+        }
+      }
+    }
+
+    // sorting categories
+    List<MapEntry<String, double>> entries = categories.entries.toList();
+    entries.sort((a, b) => b.value.compareTo(a.value));
+    List<MapEntry<String, double>> first4Categories = entries.sublist(0, 4);
+
+    // creating widgets
+    for (MapEntry<String, double> entry in first4Categories) {
+      widgets.add(
+        Category(
+          category: entry.key,
+          amount: entry.value,
+        ),
+      );
+    }
+    return widgets;
+  }
+
+  List<FlSpot> eachMonthSum(List<ExpenseModel> expenses) {
+    List<double> amounts = List<double>.generate(12, (index) => 0);
+
+    for (int month = 1; month <= 12; month++) {
+      DateTime now = DateTime.now();
+      DateTime firstDayOfMonth = DateTime(now.year, month, 1);
+      DateTime lastDayOfMonth = DateTime(now.year, month + 1, 0);
+
+      while (firstDayOfMonth.isBefore(lastDayOfMonth)) {
+
+        for (ExpenseModel expense in expenses) {
+          DateTime targetDate = DateTime.parse(expense.date);
+          DateTime compareDate = DateTime.parse(DateFormat('yyyy-MM-dd').format(firstDayOfMonth));
+          if (targetDate.compareTo(compareDate) == 0) {
+            amounts[month-1] += expense.amount;
+          }
+        }
+        firstDayOfMonth = firstDayOfMonth.add(const Duration(days: 1));
+      }
+    }
+
+    return [
+      for (int i = 0; i < 12; i++)
+        FlSpot(i.toDouble()+1, amounts[i])
+    ];
+  }
+
+  Future<List<FlSpot>> yearlyStats(Future<List> expenses) => expenses.then(
+    (list) => getExpenses(list).then(
+      (expenseModels) => eachMonthSum(expenseModels),
+    ),
+  );
 
 }

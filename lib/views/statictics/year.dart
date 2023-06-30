@@ -6,27 +6,22 @@ import 'package:get/get.dart';
 import '../../controllers/auth.controller.dart';
 import '../../controllers/expense.controller.dart';
 
-class Month extends StatefulWidget {
-  const Month({super.key});
+class Year extends StatefulWidget {
+  const Year({super.key});
 
   @override
-  State<Month> createState() => _MonthState();
+  State<Year> createState() => _YearState();
 
 }
 
-class _MonthState extends State<Month> {
+class _YearState extends State<Year> {
   late Future<List> expenses;
 
   final ExpenseController _expenseController = Get.put(ExpenseController());
   final User? user = Get.put(AuthController()).currentUser;
-
-  double daysInMonth() {
-    DateTime now = DateTime.now();
-    return DateTime(now.year, now.month + 1, 0).day.toDouble();
-  }
-
-  double maxSpentDay(List<FlSpot> list) {
-    List<double> nums = List<double>.generate(daysInMonth().toInt(), (index) => 0);
+  
+  double maxSpentMonth(List<FlSpot> list) {
+    List<double> nums = List<double>.generate(12, (index) => 0);
     int i = 0;
 
     for (FlSpot item in list) {
@@ -60,15 +55,15 @@ class _MonthState extends State<Month> {
           AspectRatio(
             aspectRatio: 1.7,
             child: FutureBuilder(
-              future: _expenseController.monthlyStats(expenses),
+              future: _expenseController.yearlyStats(expenses),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return LineChart(
                     LineChartData(
                       minX: 1,
                       minY: 0,
-                      maxX: daysInMonth(),
-                      maxY: maxSpentDay(snapshot.data!),
+                      maxX: 12,
+                      maxY: maxSpentMonth(snapshot.data!),
                       titlesData: const FlTitlesData(
                         show: true,
                         rightTitles: AxisTitles(
@@ -116,33 +111,9 @@ class _MonthState extends State<Month> {
             ),
           ),
           const Text('Top Spending Categories'),
-          FutureBuilder(
-            future: expenses,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return FutureBuilder(
-                  future: _expenseController.getExpenses(snapshot.data!),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return Column(
-                        children: _expenseController.top4MonthlyCategories(snapshot.data!),
-                      );
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
-                );
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
         ],
       ),
     );
   }
+
 }

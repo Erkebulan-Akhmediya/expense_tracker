@@ -1,5 +1,6 @@
 import 'package:expense_tracker/views/statictics/month.dart';
 import 'package:expense_tracker/views/statictics/week.dart';
+import 'package:expense_tracker/views/statictics/year.dart';
 import 'package:flutter/material.dart';
 
 class Statistics extends StatelessWidget {
@@ -24,7 +25,7 @@ class Statistics extends StatelessWidget {
             children: [
               Week(),
               Month(),
-              Text('3'),
+              Year(),
             ],
           ),
         ),
