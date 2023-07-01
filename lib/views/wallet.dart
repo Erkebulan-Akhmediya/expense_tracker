@@ -1,5 +1,6 @@
 import 'package:expense_tracker/controllers/expense.controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -19,14 +20,29 @@ class _WalletState extends State<Wallet> {
   final TextEditingController _dateController = TextEditingController();
 
   Future<void> createExpense() async {
-    await ExpenseController().createExpense(
-      ExpenseModel(
-        category: _selectedCategory,
-        name: _nameController.text,
-        amount: double.parse(_amountController.text),
-        date: _dateController.text,
-      ),
-    );
+    try {
+      await ExpenseController().createExpense(
+        ExpenseModel(
+          category: _selectedCategory,
+          name: _nameController.text,
+          amount: double.parse(_amountController.text),
+          date: _dateController.text,
+        ),
+      );
+      Get.snackbar(
+        'Success',
+        'Expense has been added',
+        backgroundColor: Colors.green,
+        overlayBlur: 1,
+      );
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Failed to add expense',
+        backgroundColor: Colors.red,
+        overlayBlur: 1,
+      );
+    }
   }
 
   @override

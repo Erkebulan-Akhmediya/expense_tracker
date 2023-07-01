@@ -293,8 +293,11 @@ class ExpenseController extends GetxController {
     for (String category in categories.keys) {
       for (ExpenseModel expense in expenses) {
         DateTime targetDate = DateTime.parse(expense.date);
-        bool isInMonth = targetDate.isAfter(firstDayOfMonth) &&
-            targetDate.isBefore(lastDayOfMonth);
+        bool isInMonth = targetDate.isAfter(
+          firstDayOfMonth.subtract(const Duration(days: 1)),
+        ) && targetDate.isBefore(
+          lastDayOfMonth.add(const Duration(days: 1)),
+        );
 
         if (expense.category == category && isInMonth == true) {
           categories[category] = categories[category]! + expense.amount;
@@ -351,5 +354,49 @@ class ExpenseController extends GetxController {
       (expenseModels) => eachMonthSum(expenseModels),
     ),
   );
+
+  List<Widget> top4YearlyCategories(List<ExpenseModel> expenses) {
+    Map<String, double> categories = {
+      'Uncategorized': 0,
+      'Housing': 0,
+      'Transportation': 0,
+      'Food': 0,
+      'Health and Medical': 0,
+      'Personal Care': 0,
+      'Entertainment': 0,
+      'Debt Payments': 0,
+      'Education': 0,
+      'Clothing and Accessories': 0,
+      'Savings and Investments': 0,
+    };
+
+    // calculating categories
+    for (String category in categories.keys) {
+      for (ExpenseModel expense in expenses) {
+        DateTime targetDate = DateTime.parse(expense.date);
+
+        if (expense.category == category && targetDate.year == DateTime.now().year) {
+          categories[category] = categories[category]! + expense.amount;
+        }
+      }
+    }
+
+    // sorting categories
+    List<MapEntry<String, double>> entries = categories.entries.toList();
+    entries.sort((a, b) => b.value.compareTo(a.value));
+    List<MapEntry<String, double>> first4Categories = entries.sublist(0, 4);
+
+    // creating widgets
+    List<Widget> widgets = [];
+    for (MapEntry<String, double> entry in first4Categories) {
+      widgets.add(
+        Category(
+          category: entry.key,
+          amount: entry.value,
+        ),
+      );
+    }
+    return widgets;
+  }
 
 }

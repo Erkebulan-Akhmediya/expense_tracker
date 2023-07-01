@@ -111,6 +111,31 @@ class _YearState extends State<Year> {
             ),
           ),
           const Text('Top Spending Categories'),
+          FutureBuilder(
+            future: expenses,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return FutureBuilder(
+                  future: _expenseController.getExpenses(snapshot.data!),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return Column(
+                        children: _expenseController.top4YearlyCategories(snapshot.data!),
+                      );
+                    } else {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
         ],
       ),
     );
