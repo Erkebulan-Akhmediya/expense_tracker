@@ -21,40 +21,46 @@ class Profile extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Profile'),
       ),
-      body: Column(
-        children: <Widget>[
-          Center(
-            child: Column(
-              children: <Widget>[
-                const Icon(
-                  Icons.person_pin,
-                  size: 100,
-                ),
-                StreamBuilder(
-                  stream: _userController.getUsername(_authController.currentUser?.uid),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Text(
-                        snapshot.data!.username,
-                        style: const TextStyle(
-                          fontSize: 20,
-                        ),
-                      );
-                    } else {
-                      return SkeletonParagraph(
-                        style: const SkeletonParagraphStyle(
-                          lines: 1,
-                        ),
-                      );
-                    }
-                  },
-                ),
-                Text(_authController.currentUser!.email!),
-                Options(),
-              ],
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            Center(
+              child: Column(
+                children: <Widget>[
+                  const Icon(
+                    Icons.person_pin,
+                    size: 110,
+                  ),
+                  StreamBuilder(
+                    stream: _userController.getUsername(_authController.currentUser?.uid),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Container(
+                          margin: const EdgeInsets.all(10.0),
+                          child: Text(
+                            snapshot.data!.username,
+                            style: const TextStyle(
+                              fontSize: 30,
+                            ),
+                          ),
+                        );
+                      } else {
+                        return SkeletonParagraph(
+                          style: const SkeletonParagraphStyle(
+                            lines: 1,
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  Text(_authController.currentUser!.email!),
+                  Options(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
