@@ -14,7 +14,7 @@ class Month extends StatefulWidget {
 
 }
 
-class _MonthState extends State<Month> {
+class _MonthState extends State<Month> with AutomaticKeepAliveClientMixin<Month> {
   late Future<List> expenses;
 
   final ExpenseController _expenseController = Get.put(ExpenseController());
@@ -45,6 +45,9 @@ class _MonthState extends State<Month> {
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   void initState() {
     super.initState();
     expenses = _expenseController.getUserExpenses(user!.uid);
@@ -52,60 +55,89 @@ class _MonthState extends State<Month> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          AspectRatio(
-            aspectRatio: 1.7,
-            child: FutureBuilder(
-              future: _expenseController.monthlyStats(expenses),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return LineChart(
-                    LineChartData(
-                      minX: 1,
-                      minY: 0,
-                      maxX: daysInMonth(),
-                      maxY: maxSpentDay(snapshot.data!),
-                      titlesData: const FlTitlesData(
-                        show: true,
-                        rightTitles: AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        topTitles: AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        leftTitles: AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                      ),
-                      gridData: const FlGridData(
-                        show: false,
-                      ),
-                      borderData: FlBorderData(
-                        show: false,
-                      ),
-                      lineBarsData: [
-                        LineChartBarData(
-                          isCurved: false,
-                          spots: snapshot.data!,
-                          belowBarData: BarAreaData(
-                            show: true,
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              stops: const [0.9, 1],
-                              colors: [
-                                Colors.blue.shade100,
-                                Colors.white,
-                              ],
-                            ),
+    super.build(context);
+    return AutomaticKeepAlive(
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 1.7,
+              child: FutureBuilder(
+                future: _expenseController.monthlyStats(expenses),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return LineChart(
+                      LineChartData(
+                        minX: 1,
+                        minY: 0,
+                        maxX: daysInMonth(),
+                        maxY: maxSpentDay(snapshot.data!),
+                        titlesData: const FlTitlesData(
+                          show: true,
+                          rightTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          topTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          leftTitles: AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
                           ),
                         ),
-                      ],
-                    ),
+                        gridData: const FlGridData(
+                          show: false,
+                        ),
+                        borderData: FlBorderData(
+                          show: false,
+                        ),
+                        lineBarsData: [
+                          LineChartBarData(
+                            isCurved: false,
+                            spots: snapshot.data!,
+                            belowBarData: BarAreaData(
+                              show: true,
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                stops: const [0.9, 1],
+                                colors: [
+                                  Colors.blue.shade100,
+                                  Colors.white,
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
+            ),
+            const Text('Top Spending Categories'),
+            FutureBuilder(
+              future: expenses,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return FutureBuilder(
+                    future: _expenseController.getExpenses(snapshot.data!),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return Column(
+                          children: _expenseController.top4MonthlyCategories(snapshot.data!),
+                        );
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                    },
                   );
                 } else {
                   return const Center(
@@ -114,34 +146,8 @@ class _MonthState extends State<Month> {
                 }
               },
             ),
-          ),
-          const Text('Top Spending Categories'),
-          FutureBuilder(
-            future: expenses,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return FutureBuilder(
-                  future: _expenseController.getExpenses(snapshot.data!),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return Column(
-                        children: _expenseController.top4MonthlyCategories(snapshot.data!),
-                      );
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
-                );
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
