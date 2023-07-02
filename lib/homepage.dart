@@ -1,4 +1,4 @@
-import 'package:expense_tracker/views/profile.dart';
+import 'package:expense_tracker/views/profile/profile.dart';
 import 'package:expense_tracker/views/statictics/statistics.dart';
 import 'package:expense_tracker/views/wallet.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +16,10 @@ class _HomePageState extends State<HomePage> {
   int _currentPageIndex = 0;
 
   final List<Widget> _pages = [
-    Home(),
+    const Home(),
     const Statistics(),
     const Wallet(),
-    const Profile(),
+    Profile(),
   ];
 
   @override

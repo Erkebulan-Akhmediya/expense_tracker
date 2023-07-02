@@ -17,8 +17,12 @@ class ExpenseController extends GetxController {
   final _db = FirebaseFirestore.instance;
 
   Future<void> createExpense(ExpenseModel expense) async {
-    DocumentReference docRef = await _db.collection('Expenses').add(expense.toMap());
-    _userController.addExpenseToUser(AuthController().currentUser?.uid, docRef.id);
+    DocumentReference docRef = await _db.collection('Expenses').add(
+      expense.toMap(),
+    );
+    _userController.addExpenseToUser(
+      AuthController().currentUser?.uid, docRef.id,
+    );
   }
 
   Future<List> getUserExpenses(String uid) async {
@@ -54,7 +58,9 @@ class ExpenseController extends GetxController {
     for (var i = 0; i < list.length-1; i++) {
       swapped = false;
       for (var j = 0; j < list.length - i - 1; j++) {
-        if (DateTime.parse(list[j+1].date).isBefore(DateTime.parse(list[j].date))) {
+        if (DateTime.parse(list[j+1].date).isBefore(
+          DateTime.parse(list[j].date),
+        )) {
           temp = list[j];
           list[j] = list[j+1];
           list[j+1] = temp;
@@ -88,7 +94,11 @@ class ExpenseController extends GetxController {
       (list) => getExpenses(list).then(
         (expenseModels) {
           for (ExpenseModel expense in expenseModels) {
-            if (DateTime.parse(expense.date).compareTo(DateTime.parse(DateFormat('yyyy-MM-dd').format(DateTime.now()))) == 0) {
+            DateTime targetDate = DateTime.parse(expense.date);
+            DateTime compareDate = DateTime.parse(
+              DateFormat('yyyy-MM-dd').format(DateTime.now()),
+            );
+            if (targetDate.compareTo(compareDate) == 0) {
               sum = sum + expense.amount;
             }
           }
@@ -110,8 +120,8 @@ class ExpenseController extends GetxController {
         (expenseModels) {
           for (ExpenseModel expense in expenseModels) {
             DateTime targetDate = DateTime.parse(expense.date);
-            bool isInWeek = targetDate.isAfter(startOfWeek) && targetDate.isBefore(endOfWeek);
-            if (isInWeek == true) {
+            if (targetDate.isAfter(startOfWeek) &&
+                targetDate.isBefore(endOfWeek)) {
               sum = sum + expense.amount;
             }
           }
@@ -123,18 +133,14 @@ class ExpenseController extends GetxController {
 
   Future<double> thisMonth(Future<List> expenses) {
     double sum = 0;
-
     DateTime now = DateTime.now();
-    DateTime firstDayOfMonth = DateTime(now.year, now.month, 1);
-    DateTime lastDayOfMonth = DateTime(now.year, now.month + 1, 0);
 
     return expenses.then(
       (list) => getExpenses(list).then(
         (expenseModels) {
           for (ExpenseModel expense in expenseModels) {
             DateTime targetDate = DateTime.parse(expense.date);
-            bool isInMonth = targetDate.isAfter(firstDayOfMonth) && targetDate.isBefore(lastDayOfMonth);
-            if (isInMonth == true) {
+            if (targetDate.year == now.year && targetDate.month == now.month) {
               sum = sum + expense.amount;
             }
           }
@@ -159,7 +165,9 @@ class ExpenseController extends GetxController {
 
             for (ExpenseModel expense in expenseModels) {
               DateTime targetDate = DateTime.parse(expense.date);
-              DateTime compareDate = DateTime.parse(DateFormat('yyyy-MM-dd').format(startOfWeek));
+              DateTime compareDate = DateTime.parse(
+                DateFormat('yyyy-MM-dd').format(startOfWeek),
+              );
               if (targetDate.compareTo(compareDate) == 0) {
                 amounts[index] += expense.amount;
               }
@@ -208,7 +216,8 @@ class ExpenseController extends GetxController {
       for (ExpenseModel expense in expenses) {
 
         DateTime targetDate = DateTime.parse(expense.date);
-        bool isInWeek = targetDate.isAfter(startOfWeek) && targetDate.isBefore(endOfWeek);
+        bool isInWeek = targetDate.isAfter(startOfWeek) &&
+            targetDate.isBefore(endOfWeek);
 
         if (expense.category == category && isInWeek == true) {
           categories[category] = categories[category]! + expense.amount;
@@ -249,7 +258,9 @@ class ExpenseController extends GetxController {
 
             for (ExpenseModel expense in expenseModels) {
               DateTime targetDate = DateTime.parse(expense.date);
-              DateTime compareDate = DateTime.parse(DateFormat('yyyy-MM-dd').format(firstDayOfMonth));
+              DateTime compareDate = DateTime.parse(
+                DateFormat('yyyy-MM-dd').format(firstDayOfMonth),
+              );
               if (targetDate.compareTo(compareDate) == 0) {
                 amounts[index] += expense.amount;
               }
@@ -334,7 +345,9 @@ class ExpenseController extends GetxController {
 
         for (ExpenseModel expense in expenses) {
           DateTime targetDate = DateTime.parse(expense.date);
-          DateTime compareDate = DateTime.parse(DateFormat('yyyy-MM-dd').format(firstDayOfMonth));
+          DateTime compareDate = DateTime.parse(
+            DateFormat('yyyy-MM-dd').format(firstDayOfMonth),
+          );
           if (targetDate.compareTo(compareDate) == 0) {
             amounts[month-1] += expense.amount;
           }
@@ -375,7 +388,8 @@ class ExpenseController extends GetxController {
       for (ExpenseModel expense in expenses) {
         DateTime targetDate = DateTime.parse(expense.date);
 
-        if (expense.category == category && targetDate.year == DateTime.now().year) {
+        if (expense.category == category &&
+            targetDate.year == DateTime.now().year) {
           categories[category] = categories[category]! + expense.amount;
         }
       }
