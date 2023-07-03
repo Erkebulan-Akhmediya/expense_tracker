@@ -18,7 +18,7 @@ class _RootState extends State<Root> {
       stream: AuthController().authStateChanges,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return HomePage();
+          return const HomePage();
         } else {
           return SignInSignUp();
         }

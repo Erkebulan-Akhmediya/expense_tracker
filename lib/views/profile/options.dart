@@ -10,94 +10,47 @@ class Options extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20.0),
-      child: Column(
-        children: <Widget>[
-          TextButton(
-            onPressed: () {},
-            child: Row(
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(right: 20.0),
-                  child: const Icon(
-                    Icons.person_rounded,
-                    size: 40,
-                  ),
-                ),
-                const Text(
-                  'Account Info',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
+    return Column(
+      children: <Widget>[
+        TextButton(
+          onPressed: () {},
+          child: const Row(
+            children: <Widget>[
+              Icon(Icons.person_rounded),
+              Text('Account Info'),
+            ],
           ),
-          TextButton(
-            onPressed: () {},
-            child: Row(
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(right: 20.0),
-                  child: const Icon(
-                    Icons.format_paint_rounded,
-                    size: 40,
-                  ),
-                ),
-                const Text(
-                  'Appearance',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: const Row(
+            children: <Widget>[
+              Icon(Icons.format_paint_rounded),
+              Text('Appearance'),
+            ],
           ),
-          TextButton(
-            onPressed: () {},
-            child: Row(
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(right: 20.0),
-                  child: const Icon(
-                    Icons.language_rounded,
-                    size: 40,
-                  ),
-                ),
-                const Text(
-                  'Language',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
+        ),
+        TextButton(
+          onPressed: () {},
+          child: const Row(
+            children: <Widget>[
+              Icon(Icons.language_rounded),
+              Text('Language'),
+            ],
           ),
-          TextButton(
-            onPressed: () async {
-              await _authController.signOut();
-            },
-            child: Row(
-              children: <Widget>[
-                Container(
-                  margin: const EdgeInsets.only(right: 20.0),
-                  child: const Icon(
-                    Icons.exit_to_app_outlined,
-                    size: 40,
-                  ),
-                ),
-                const Text(
-                  'Log Out',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ],
-            ),
+        ),
+        TextButton(
+          onPressed: () async {
+            await _authController.signOut();
+          },
+          child: const Row(
+            children: <Widget>[
+              Icon(Icons.exit_to_app_outlined),
+              Text('Log Out'),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
