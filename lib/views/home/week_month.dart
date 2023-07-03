@@ -55,8 +55,8 @@ class _WeekMonthState extends State<WeekMonth> {
                         return SkeletonTheme(
                           shimmerGradient: LinearGradient(
                             colors: [
-                              Colors.blue.shade400,
-                              Colors.blue.shade600,
+                              Theme.of(context).primaryColor.withOpacity(0.4),
+                              Theme.of(context).primaryColor.withOpacity(0.6),
                             ],
                           ),
                           child: SkeletonParagraph(
@@ -102,8 +102,8 @@ class _WeekMonthState extends State<WeekMonth> {
                             SkeletonTheme(
                               shimmerGradient: LinearGradient(
                                 colors: [
-                                  Colors.blue.shade400,
-                                  Colors.blue.shade600,
+                                  Theme.of(context).primaryColor.withOpacity(0.4),
+                                  Theme.of(context).primaryColor.withOpacity(0.6),
                                 ],
                               ),
                               child: SkeletonParagraph(

@@ -14,28 +14,37 @@ class Options extends StatelessWidget {
       children: <Widget>[
         TextButton(
           onPressed: () {},
-          child: const Row(
+          child: Row(
             children: <Widget>[
-              Icon(Icons.person_rounded),
-              Text('Account Info'),
+              Container(
+                margin: const EdgeInsets.only(right: 10.0),
+                child: const Icon(Icons.person_rounded),
+              ),
+              const Text('Account Info'),
             ],
           ),
         ),
         TextButton(
           onPressed: () {},
-          child: const Row(
+          child: Row(
             children: <Widget>[
-              Icon(Icons.format_paint_rounded),
-              Text('Appearance'),
+              Container(
+                margin: const EdgeInsets.only(right: 10.0),
+                child: const Icon(Icons.format_paint_rounded),
+              ),
+              const Text('Appearance'),
             ],
           ),
         ),
         TextButton(
           onPressed: () {},
-          child: const Row(
+          child: Row(
             children: <Widget>[
-              Icon(Icons.language_rounded),
-              Text('Language'),
+              Container(
+                margin: const EdgeInsets.only(right: 10.0),
+                child: const Icon(Icons.language_rounded),
+              ),
+              const Text('Language'),
             ],
           ),
         ),
@@ -43,10 +52,13 @@ class Options extends StatelessWidget {
           onPressed: () async {
             await _authController.signOut();
           },
-          child: const Row(
+          child: Row(
             children: <Widget>[
-              Icon(Icons.exit_to_app_outlined),
-              Text('Log Out'),
+              Container(
+                margin: const EdgeInsets.only(right: 10.0),
+                child: const Icon(Icons.exit_to_app_outlined),
+              ),
+              const Text('Log Out'),
             ],
           ),
         ),

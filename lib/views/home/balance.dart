@@ -13,9 +13,9 @@ class Balance extends StatelessWidget {
       borderRadius: const BorderRadius.all(Radius.circular(20)),
       child: Container(
         height: 200,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Colors.blue,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          color: Theme.of(context).primaryColor,
         ),
         child: const Column(
           children: [

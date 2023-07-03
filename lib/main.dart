@@ -10,17 +10,53 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  ThemeData primaryTheme = ThemeData(
+    primaryColor: Colors.green,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.green,
+    ),
+    tabBarTheme: const TabBarTheme(
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(
+          color: Colors.white,
+        ),
+      ),
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      selectedItemColor: Colors.green,
+    ),
+    elevatedButtonTheme: const ElevatedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(Colors.green),
+      ),
+    ),
+    textButtonTheme: const TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStatePropertyAll(Colors.black),
+      ),
+    ),
+    textTheme: const TextTheme(
+      labelLarge: TextStyle(
+        fontSize: 20,
+      ),
+    ),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: Colors.green,
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Root(),
+      theme: primaryTheme,
+      home: const Root(),
     );
   }
 }
