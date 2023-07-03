@@ -9,26 +9,26 @@ class Statistics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Statistics'),
-          bottom: const TabBar(
-            tabs: [
-              Tab(text: 'Week'),
-              Tab(text: 'Month'),
-              Tab(text: 'Year'),
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Statistics'),
+            bottom: const TabBar(
+              tabs: [
+                Tab(text: 'Week'),
+                Tab(text: 'Month'),
+                Tab(text: 'Year'),
+              ],
+            ),
+          ),
+          body: const TabBarView(
+            children: [
+              Week(),
+              Month(),
+              Year(),
             ],
           ),
         ),
-        body: const TabBarView(
-          children: [
-            Week(),
-            Month(),
-            Year(),
-          ],
-        ),
-      ),
     );
   }
 
