@@ -65,8 +65,8 @@ class Profile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const Divider(
-                    color: Colors.black,
+                  Divider(
+                    color: Theme.of(context).primaryColor,
                   ),
                   Options(),
                 ],

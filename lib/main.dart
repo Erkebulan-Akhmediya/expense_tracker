@@ -58,11 +58,57 @@ class MyApp extends StatelessWidget {
     ),
   );
 
+  ThemeData darkTheme = ThemeData(
+    primaryColor: const Color(0xFFBB86Fc),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.black,
+    ),
+    tabBarTheme: const TabBarTheme(
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(
+          color: Colors.black,
+        ),
+      ),
+    ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      selectedItemColor: Color(0xFFBB86Fc),
+      unselectedItemColor: Colors.white,
+      backgroundColor: Colors.black,
+    ),
+    elevatedButtonTheme: const ElevatedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(Color(0xFFBB86Fc)),
+      ),
+    ),
+    textButtonTheme: const TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStatePropertyAll(Colors.white),
+      ),
+    ),
+    textTheme: const TextTheme(
+      labelLarge: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w400,
+      ),
+      bodyLarge: TextStyle(
+        color: Colors.white,
+      ),
+      bodyMedium: TextStyle(
+        color: Colors.white,
+      ),
+    ),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
+      color: Color(0xFFBB86Fc),
+    ),
+    scaffoldBackgroundColor: const Color(0xFF151515),
+  );
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: primaryTheme,
+      darkTheme: darkTheme,
       home: const Root(),
     );
   }
