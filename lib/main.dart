@@ -1,3 +1,4 @@
+import 'package:expense_tracker/controllers/internationalization.dart';
 import 'package:expense_tracker/firebase_options.dart';
 import 'package:expense_tracker/root.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -109,6 +110,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: primaryTheme,
       darkTheme: darkTheme,
+      translations: Internationalization(),
+      locale: const Locale('en', 'UK'),
       home: const Root(),
     );
   }

@@ -1,0 +1,57 @@
+import 'package:get/get.dart';
+
+class Internationalization extends Translations {
+  @override
+  Map<String, Map<String, String>> get keys => {
+    'en_UK': {
+      'sign_in': 'Sign In',
+      'email_address': 'Email Address',
+      'password': 'Password',
+      'swipe_left': 'Don\'t have an account? Swipe left',
+      'sign_up': 'Sign Up',
+      'username': 'Username',
+      'verify_password': 'Verify Password',
+      'swipe_right': 'Already have an account? Swipe right',
+      'good_afternoon': 'Good afternoon,',
+      'expense_history': 'Expense History',
+      'today': 'Today',
+      'this_week': 'This Week',
+      'this_month': 'This Month',
+      'appearance': 'Appearance',
+      'light': 'Light',
+      'dark': 'Dark',
+      'language': 'Language',
+      'english': 'English',
+      'kazakh': 'Kazakh',
+      'russian': 'Russian',
+      'account_info': 'Account Info',
+      'log_out': 'Log Out',
+      'profile': 'Profile',
+      // 'uncategorized': 'Uncategorized',
+      // 'housing': 'Housing',
+      // 'transportation': 'Transportation',
+      // 'food': 'Food',
+      // 'health_and_medical': 'Health and Medical',
+      // 'personal_care': 'Personal Care',
+      // 'entertainment': 'Entertainment',
+      // 'debt_payments': 'Debt Payments',
+      // 'education': 'Education',
+      // 'clothing_and_accessories': 'Clothing and Accessories',
+      // 'savings_and_investments': 'Savings and Investments',
+      'top_spending_categories': 'Top Spending Categories',
+      'statistics': 'Statistics',
+      'week': 'Week',
+      'month': 'Month',
+      'year': 'Year',
+      'monday': 'Mon',
+      'tuesday': 'Tue',
+      'wednesday': 'Wed',
+      'thursday': 'Thu',
+      'friday': 'Fri',
+      'saturday': 'Sat',
+      'sunday': 'Sun',
+
+    },
+  };
+
+}

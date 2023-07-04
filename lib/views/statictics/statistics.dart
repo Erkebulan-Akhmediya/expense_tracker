@@ -2,6 +2,7 @@ import 'package:expense_tracker/views/statictics/month.dart';
 import 'package:expense_tracker/views/statictics/week.dart';
 import 'package:expense_tracker/views/statictics/year.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Statistics extends StatelessWidget {
   const Statistics({super.key});
@@ -13,7 +14,7 @@ class Statistics extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: Text(
-              'Statistics',
+              'statistics'.tr,
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyLarge?.color,
               ),
@@ -22,19 +23,19 @@ class Statistics extends StatelessWidget {
               tabs: [
                 Tab(
                   child: Text(
-                    'Week',
+                    'week'.tr,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
                 Tab(
                   child: Text(
-                    'Month',
+                    'month'.tr,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
                 Tab(
                   child: Text(
-                    'Year',
+                    'year'.tr,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),

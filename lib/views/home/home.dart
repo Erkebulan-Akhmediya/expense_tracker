@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Good afternoon,',
+              'good_afternoon,'.tr,
               style: TextStyle(
                 fontSize: 12,
                 color: Theme.of(context).textTheme.bodyLarge?.color,
@@ -79,7 +79,7 @@ class _HomeState extends State<Home> {
               left: 3,
             ),
             child: Text(
-              'Expense History',
+              'expense_history'.tr,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,

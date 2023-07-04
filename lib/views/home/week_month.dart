@@ -41,7 +41,7 @@ class _WeekMonthState extends State<WeekMonth> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'This Week',
+                    'this_week'.tr,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   FutureBuilder<double>(
@@ -89,7 +89,7 @@ class _WeekMonthState extends State<WeekMonth> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   Text(
-                    'This Month',
+                    'this_month'.tr,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   FutureBuilder<double>(

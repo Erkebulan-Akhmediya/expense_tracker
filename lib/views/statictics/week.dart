@@ -85,25 +85,25 @@ class _WeekState extends State<Week> {
 
                               switch (value.toInt()) {
                                 case 0:
-                                  text = 'Mon';
+                                  text = 'monday'.tr;
                                   break;
                                 case 1:
-                                  text = 'Tue';
+                                  text = 'tuesday'.tr;
                                   break;
                                 case 2:
-                                  text = 'Wed';
+                                  text = 'wednesday'.tr;
                                   break;
                                 case 3:
-                                  text = 'Thu';
+                                  text = 'thursday'.tr;
                                   break;
                                 case 4:
-                                  text = 'Fri';
+                                  text = 'friday'.tr;
                                   break;
                                 case 5:
-                                  text = 'Sat';
+                                  text = 'saturday'.tr;
                                   break;
                                 case 6:
-                                  text = 'Sun';
+                                  text = 'sunday'.tr;
                                   break;
                                 default:
                                   return Container();
@@ -161,7 +161,7 @@ class _WeekState extends State<Week> {
           Container(
             margin: const EdgeInsets.only(bottom: 15, top: 20),
             child: Text(
-              'Top Spending Categories',
+              'top_spending_categories'.tr,
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyMedium?.color,
                 fontSize: 20,

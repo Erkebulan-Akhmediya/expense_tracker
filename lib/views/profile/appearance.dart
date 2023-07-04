@@ -9,21 +9,22 @@ class Appearance extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Appearance'),
+        title: Text('appearance'.tr),
       ),
-      body: Column(
+      body: ListView(
+        padding: const EdgeInsets.all(20.0),
         children: <Widget>[
           ElevatedButton(
             onPressed: () {
               Get.changeTheme(MyApp().primaryTheme);
             },
-            child: const Text('Light'),
+            child: Text('light'.tr),
           ),
           ElevatedButton(
             onPressed: () {
               Get.changeTheme(MyApp().darkTheme);
             },
-            child: const Text('Dark'),
+            child: Text('dark'.tr),
           ),
         ],
       ),

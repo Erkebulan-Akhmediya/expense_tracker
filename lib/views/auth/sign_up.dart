@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../controllers/auth.controller.dart';
 
@@ -80,43 +81,43 @@ class _SignUpState extends State<SignUp> {
                   Icons.app_registration_rounded,
                   size: 40,
                 ),
-                const Text(
-                  'Sign Up',
-                  style: TextStyle(
+                Text(
+                  'sign_up'.tr,
+                  style: const TextStyle(
                     fontSize: 20,
                   ),
                 ),
                 _error(),
                 TextField(
                   controller: _usernameController,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.person_rounded),
-                    labelText: 'Username',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.person_rounded),
+                    labelText: 'username'.tr,
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 TextField(
                   controller: _emailController,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.mail_outline_rounded),
-                    labelText: 'Email Address',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.mail_outline_rounded),
+                    labelText: 'email_address'.tr,
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 TextField(
                   controller: _passwordController,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.lock_outline_rounded),
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.lock_outline_rounded),
+                    labelText: 'password'.tr,
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 TextField(
                   controller: _passwordVerificationController,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.lock_outline_rounded),
-                    labelText: 'Verify Password',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.lock_outline_rounded),
+                    labelText: 'verify_password'.tr,
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 Row(
@@ -127,9 +128,9 @@ class _SignUpState extends State<SignUp> {
                           backgroundColor: MaterialStatePropertyAll(Colors.blue),
                         ),
                         onPressed: createUserWithEmailAndPassword,
-                        child:  const Text(
-                          'Sign Up',
-                          style: TextStyle(
+                        child: Text(
+                          'sign_up'.tr,
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),
@@ -137,9 +138,9 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ],
                 ),
-                const Row(
+                Row(
                   children: <Widget>[
-                    Text('Already have an account? Swipe right')
+                    Text('swipe_right'.tr)
                   ],
                 ),
               ],

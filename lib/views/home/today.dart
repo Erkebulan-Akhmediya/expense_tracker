@@ -38,7 +38,7 @@ class _TodayState extends State<Today> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Today',
+              'today'.tr,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             FutureBuilder<double>(

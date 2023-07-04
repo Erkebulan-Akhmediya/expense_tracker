@@ -1,6 +1,7 @@
 import 'package:expense_tracker/controllers/auth.controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -63,27 +64,27 @@ class _SignInState extends State<SignIn> {
                   Icons.login_rounded,
                   size: 40,
                 ),
-                const Text(
-                  'Sign In',
-                  style: TextStyle(
+                Text(
+                  'sign_in'.tr,
+                  style: const TextStyle(
                     fontSize: 20,
                   ),
                 ),
                 _error(),
                 TextField(
                   controller: _emailController,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.mail_outline_rounded),
-                    labelText: 'Email Address',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.mail_outline_rounded),
+                    labelText: 'email_address'.tr,
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 TextField(
                   controller: _passwordController,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.lock_outline_rounded),
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    prefixIcon: const Icon(Icons.lock_outline_rounded),
+                    labelText: 'password'.tr,
+                    border: const OutlineInputBorder(),
                   ),
                 ),
                 Row(
@@ -94,9 +95,9 @@ class _SignInState extends State<SignIn> {
                           backgroundColor: MaterialStatePropertyAll(Colors.blue),
                         ),
                         onPressed: signInWithEmailAndPassword,
-                        child:  const Text(
-                          'Sign In',
-                          style: TextStyle(
+                        child: Text(
+                          'sign_in'.tr,
+                          style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),
@@ -104,9 +105,9 @@ class _SignInState extends State<SignIn> {
                     )
                   ],
                 ),
-                const Row(
+                Row(
                   children: <Widget>[
-                    Text('Don\'t have an account? Swipe left'),
+                    Text('swipe_left'.tr),
                   ],
                 ),
               ],

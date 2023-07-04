@@ -1,4 +1,5 @@
 import 'package:expense_tracker/views/profile/appearance.dart';
+import 'package:expense_tracker/views/profile/language.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +27,7 @@ class Options extends StatelessWidget {
                     size: 40,
                   ),
                 ),
-                const Text('Account Info'),
+                Text('account_info'.tr),
               ],
             ),
           ),
@@ -50,7 +51,7 @@ class Options extends StatelessWidget {
                     size: 40,
                   ),
                 ),
-                const Text('Appearance'),
+                Text('appearance'.tr),
               ],
             ),
           ),
@@ -58,7 +59,13 @@ class Options extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(bottom: 10.0),
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => const Language(),
+                ),
+              );
+            },
             child: Row(
               children: <Widget>[
                 Container(
@@ -68,7 +75,7 @@ class Options extends StatelessWidget {
                     size: 40,
                   ),
                 ),
-                const Text('Language'),
+                Text('language'.tr),
               ],
             ),
           ),
@@ -86,7 +93,7 @@ class Options extends StatelessWidget {
                   size: 40,
                 ),
               ),
-              const Text('Log Out'),
+              Text('log_out'.tr),
             ],
           ),
         ),

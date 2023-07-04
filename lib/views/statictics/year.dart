@@ -176,7 +176,7 @@ class _YearState extends State<Year> {
           Container(
             margin: const EdgeInsets.only(bottom: 15, top: 20),
             child: Text(
-              'Top Spending Categories',
+              'top_spending_categories'.tr,
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodyMedium?.color,
                 fontSize: 20,
