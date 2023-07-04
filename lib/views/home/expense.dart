@@ -37,38 +37,42 @@ class _ExpenseState extends State<Expense> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor.withOpacity(0.3),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
       child: Row(
         children: <Widget>[
-          Expanded(
-            child: Row(
-              children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: Icon(
-                    widget.icons[widget.category],
-                    size: 60,
-                    color: Theme.of(context).textTheme.bodyMedium?.color,
+          Row(
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(
+                  widget.icons[widget.category],
+                  size: 50,
+                  color: Theme.of(context).textTheme.bodyMedium?.color,
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    widget.name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
+                    ),
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      widget.name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).textTheme.bodyMedium?.color,
-                      ),
-                    ),
-                    Text(
-                      widget.date,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  Text(
+                    widget.date,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
+              ),
+            ],
           ),
           Expanded(
             child: Row(

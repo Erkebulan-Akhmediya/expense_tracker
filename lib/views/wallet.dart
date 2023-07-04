@@ -29,6 +29,12 @@ class _WalletState extends State<Wallet> {
           date: _dateController.text,
         ),
       );
+      setState(() {
+        _selectedCategory = 'Uncategorized';
+      });
+      _nameController.text = '';
+      _amountController.text = '';
+      _dateController.text = '';
       Get.snackbar(
         'Success',
         'Expense has been added',

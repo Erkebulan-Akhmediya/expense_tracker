@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Category extends StatelessWidget {
-  Category({
+  const Category({
     super.key,
     required this.category,
     required this.amount,
@@ -10,7 +10,7 @@ class Category extends StatelessWidget {
   final String category;
   final double amount;
 
-  Map<String, IconData> icons = {
+  final Map<String, IconData> icons = const {
     'Uncategorized': Icons.attach_money_rounded,
     'Housing': Icons.house_rounded,
     'Transportation': Icons.emoji_transportation_rounded,

@@ -44,6 +44,7 @@ class MyApp extends StatelessWidget {
     textTheme: const TextTheme(
       labelLarge: TextStyle(
         fontSize: 20,
+        fontWeight: FontWeight.w400,
       ),
       bodyLarge: TextStyle(
         color: Colors.white,

@@ -30,9 +30,10 @@ class Profile extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     margin: const EdgeInsets.all(10.0),
-                    child: const Icon(
+                    child: Icon(
                       Icons.person_pin,
                       size: 100,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   StreamBuilder(
@@ -56,7 +57,16 @@ class Profile extends StatelessWidget {
                   ),
                   Container(
                     margin: const EdgeInsets.all(10.0),
-                    child: Text(_authController.currentUser!.email!),
+                    child: Text(
+                      _authController.currentUser!.email!,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ),
+                  const Divider(
+                    color: Colors.black,
                   ),
                   Options(),
                 ],
