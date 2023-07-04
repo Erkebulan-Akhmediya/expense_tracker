@@ -28,6 +28,11 @@ class Category extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10.0),
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: Theme.of(context).primaryColor.withOpacity(0.3),
+      ),
       child: Row(
         children: <Widget>[
           Expanded(
@@ -37,10 +42,20 @@ class Category extends StatelessWidget {
                   margin: const EdgeInsets.only(right: 10),
                   child: Icon(
                     icons[category],
-                    size: 60,
+                    size: 40,
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 ),
-                Text(category),
+                Flexible(
+                  child: Text(
+                    category,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      color: Theme.of(context).textTheme.bodyMedium?.color,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

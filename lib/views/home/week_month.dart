@@ -40,15 +40,19 @@ class _WeekMonthState extends State<WeekMonth> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text('This Week'),
+                  Text(
+                    'This Week',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
                   FutureBuilder<double>(
                     future: _expenseController.thisWeek(expenses),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return Text(
                           '\$${snapshot.data}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 25,
+                            color: Theme.of(context).textTheme.bodyLarge?.color,
                           ),
                         );
                       } else {
@@ -84,15 +88,19 @@ class _WeekMonthState extends State<WeekMonth> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  const Text('This Month'),
+                  Text(
+                    'This Month',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
                   FutureBuilder<double>(
                     future: _expenseController.thisMonth(expenses),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return Text(
                           '\$${snapshot.data}',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 25,
+                            color: Theme.of(context).textTheme.bodyLarge?.color,
                           ),
                         );
                       } else {

@@ -37,15 +37,19 @@ class _TodayState extends State<Today> {
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Today'),
+            Text(
+              'Today',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
             FutureBuilder<double>(
               future: _expenseController.todayExpenses(expenses),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return Text(
                     '\$${snapshot.data}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 45,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   );
                 } else {

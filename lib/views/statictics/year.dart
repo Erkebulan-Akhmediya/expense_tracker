@@ -48,7 +48,7 @@ class _YearState extends State<Year> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(top: 60, right: 30, bottom: 20, left: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -64,16 +64,75 @@ class _YearState extends State<Year> {
                       minY: 0,
                       maxX: 12,
                       maxY: maxSpentMonth(snapshot.data!),
-                      titlesData: const FlTitlesData(
+                      titlesData: FlTitlesData(
                         show: true,
-                        rightTitles: AxisTitles(
+                        rightTitles: const AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
                         ),
-                        topTitles: AxisTitles(
+                        topTitles: const AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
                         ),
-                        leftTitles: AxisTitles(
+                        leftTitles: const AxisTitles(
                           sideTitles: SideTitles(showTitles: false),
+                        ),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            reservedSize: 50,
+
+                            getTitlesWidget: (double value, TitleMeta meta) {
+                              String text;
+
+                              switch (value.toInt()) {
+                                case 1:
+                                  text = '1';
+                                  break;
+                                case 2:
+                                  text = '2';
+                                  break;
+                                case 3:
+                                  text = '3';
+                                  break;
+                                case 4:
+                                  text = '4';
+                                  break;
+                                case 5:
+                                  text = '5';
+                                  break;
+                                case 6:
+                                  text = '6';
+                                  break;
+                                case 7:
+                                  text = '7';
+                                  break;
+                                case 8:
+                                  text = '8';
+                                  break;
+                                case 9:
+                                  text = '9';
+                                  break;
+                                case 10:
+                                  text = '10';
+                                  break;
+                                case 11:
+                                  text = '11';
+                                  break;
+                                case 12:
+                                  text = '12';
+                                  break;
+                                default:
+                                  return Container();
+                              }
+
+                              return Container(
+                                margin: const EdgeInsets.only(top: 20),
+                                child: Text(
+                                  text,
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              );
+                            }
+                          ),
                         ),
                       ),
                       gridData: const FlGridData(
@@ -85,6 +144,10 @@ class _YearState extends State<Year> {
                       lineBarsData: [
                         LineChartBarData(
                           isCurved: false,
+                          dotData: const FlDotData(
+                            show: false,
+                          ),
+                          color: Theme.of(context).primaryColor,
                           spots: snapshot.data!,
                           belowBarData: BarAreaData(
                             show: true,
@@ -93,7 +156,7 @@ class _YearState extends State<Year> {
                               end: Alignment.bottomCenter,
                               stops: const [0.9, 1],
                               colors: [
-                                Colors.blue.shade100,
+                                Theme.of(context).primaryColor.withOpacity(0.5),
                                 Colors.white,
                               ],
                             ),
@@ -110,7 +173,17 @@ class _YearState extends State<Year> {
               },
             ),
           ),
-          const Text('Top Spending Categories'),
+          Container(
+            margin: const EdgeInsets.only(bottom: 15, top: 20),
+            child: Text(
+              'Top Spending Categories',
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyMedium?.color,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           FutureBuilder(
             future: expenses,
             builder: (context, snapshot) {

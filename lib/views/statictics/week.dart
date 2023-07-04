@@ -48,7 +48,7 @@ class _WeekState extends State<Week> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: const EdgeInsets.only(top: 60, right: 30, bottom: 20, left: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -77,6 +77,7 @@ class _WeekState extends State<Week> {
                         ),
                         bottomTitles: AxisTitles(
                           sideTitles: SideTitles(
+                            reservedSize: 50,
                             showTitles: true,
                             interval: 1,
                             getTitlesWidget: (double value, TitleMeta meta) {
@@ -108,7 +109,13 @@ class _WeekState extends State<Week> {
                                   return Container();
                               }
 
-                              return Text(text);
+                              return Container(
+                                margin: const EdgeInsets.only(top: 20),
+                                child: Text(
+                                  text,
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                              );
                             },
                           ),
                         ),
@@ -121,8 +128,12 @@ class _WeekState extends State<Week> {
                       ),
                       lineBarsData: [
                         LineChartBarData(
+                          dotData: const FlDotData(
+                            show: false,
+                          ),
                           isCurved: false,
                           spots: snapshot.data!,
+                          color: Theme.of(context).primaryColor,
                           belowBarData: BarAreaData(
                             show: true,
                             gradient: LinearGradient(
@@ -130,7 +141,7 @@ class _WeekState extends State<Week> {
                               end: Alignment.bottomCenter,
                               stops: const [0.9, 1],
                               colors: [
-                                Colors.blue.shade100,
+                                Theme.of(context).primaryColor.withOpacity(0.5),
                                 Colors.white,
                               ],
                             ),
@@ -147,7 +158,17 @@ class _WeekState extends State<Week> {
               },
             ),
           ),
-          const Text('Top Spending Categories'),
+          Container(
+            margin: const EdgeInsets.only(bottom: 15, top: 20),
+            child: Text(
+              'Top Spending Categories',
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodyMedium?.color,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
           FutureBuilder(
             future: expenses,
             builder: (context, snapshot) {

@@ -45,6 +45,12 @@ class MyApp extends StatelessWidget {
       labelLarge: TextStyle(
         fontSize: 20,
       ),
+      bodyLarge: TextStyle(
+        color: Colors.white,
+      ),
+      bodyMedium: TextStyle(
+        color: Colors.black,
+      ),
     ),
     progressIndicatorTheme: const ProgressIndicatorThemeData(
       color: Colors.green,

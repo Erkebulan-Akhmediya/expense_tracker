@@ -37,10 +37,11 @@ class _HomeState extends State<Home> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
+            Text(
               'Good afternoon,',
               style: TextStyle(
                 fontSize: 12,
+                color: Theme.of(context).textTheme.bodyLarge?.color,
               ),
             ),
             StreamBuilder<UserModel>(
@@ -49,8 +50,9 @@ class _HomeState extends State<Home> {
                 if (snapshot.hasData) {
                   return Text(
                     snapshot.data!.username,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 30,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   );
                 } else {
@@ -76,11 +78,12 @@ class _HomeState extends State<Home> {
               bottom: 20,
               left: 3,
             ),
-            child: const Text(
+            child: Text(
               'Expense History',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
+                color: Theme.of(context).textTheme.bodyMedium?.color,
               ),
             ),
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Expense extends StatefulWidget {
-  Expense({
+  const Expense({
     super.key,
     required this.category,
     required this.name,
@@ -14,7 +14,7 @@ class Expense extends StatefulWidget {
   final String date;
   final double amount;
 
-  Map<String, IconData> icons = {
+  final Map<String, IconData> icons = const {
     'Uncategorized': Icons.attach_money_rounded,
     'Housing': Icons.house_rounded,
     'Transportation': Icons.emoji_transportation_rounded,
@@ -47,6 +47,7 @@ class _ExpenseState extends State<Expense> {
                   child: Icon(
                     widget.icons[widget.category],
                     size: 60,
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 ),
                 Column(
@@ -55,11 +56,15 @@ class _ExpenseState extends State<Expense> {
                   children: <Widget>[
                     Text(
                       widget.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Theme.of(context).textTheme.bodyMedium?.color,
                       ),
                     ),
-                    Text(widget.date),
+                    Text(
+                      widget.date,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ],
                 ),
               ],
@@ -71,8 +76,10 @@ class _ExpenseState extends State<Expense> {
               children: <Widget>[
                 Text(
                   '\$${widget.amount}',
-                  style: const TextStyle(
+                  style:
+                  TextStyle(
                     fontSize: 20,
+                    color: Theme.of(context).textTheme.bodyMedium?.color,
                   ),
                 ),
               ],
