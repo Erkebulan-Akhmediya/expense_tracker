@@ -105,6 +105,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 TextField(
+                  obscureText: true,
                   controller: _passwordController,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
@@ -113,6 +114,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 TextField(
+                  obscureText: true,
                   controller: _passwordVerificationController,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.lock_outline_rounded),

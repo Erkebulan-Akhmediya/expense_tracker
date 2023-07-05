@@ -1,3 +1,4 @@
+import 'package:expense_tracker/views/profile/account_info.dart';
 import 'package:expense_tracker/views/profile/appearance.dart';
 import 'package:expense_tracker/views/profile/language.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,13 @@ class Options extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(bottom: 10.0, top: 10.0),
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) => AccountInfo(),
+                ),
+              );
+            },
             child: Row(
               children: <Widget>[
                 Container(

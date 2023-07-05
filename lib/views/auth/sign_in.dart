@@ -80,6 +80,7 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
                 TextField(
+                  obscureText: true,
                   controller: _passwordController,
                   decoration: InputDecoration(
                     prefixIcon: const Icon(Icons.lock_outline_rounded),
