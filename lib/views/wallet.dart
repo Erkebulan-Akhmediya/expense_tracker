@@ -14,7 +14,7 @@ class Wallet extends StatefulWidget {
 }
 
 class _WalletState extends State<Wallet> {
-  String _selectedCategory = 'Uncategorized';
+  String _selectedCategory = 'uncategorized';
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
@@ -30,7 +30,7 @@ class _WalletState extends State<Wallet> {
         ),
       );
       setState(() {
-        _selectedCategory = 'Uncategorized';
+        _selectedCategory = 'uncategorized';
       });
       _nameController.text = '';
       _amountController.text = '';
@@ -56,7 +56,7 @@ class _WalletState extends State<Wallet> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title: const Text('Add Expense'),
+        title: Text('add_expense'.tr),
       ),
       body: Center(
         child: Material(
@@ -78,7 +78,7 @@ class _WalletState extends State<Wallet> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 7.0),
                       child: Text(
-                        'CATEGORY',
+                        'category'.tr,
                         style: GoogleFonts.inter(
                           textStyle: const TextStyle(
                             fontSize: 17,
@@ -95,103 +95,103 @@ class _WalletState extends State<Wallet> {
                       child: DropdownButton(
                         value: _selectedCategory,
                         isExpanded: true,
-                        items: const [
+                        items: [
                           DropdownMenuItem(
-                            value: 'Uncategorized',
+                            value: 'uncategorized',
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.attach_money_rounded),
-                                Text('Uncategorized'),
+                                const Icon(Icons.attach_money_rounded),
+                                Text('uncategorized'.tr),
                               ],
                             ),
                           ),
                           DropdownMenuItem(
-                            value: 'Housing',
+                            value: 'housing',
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.house_rounded),
-                                Text('Housing'),
+                                const Icon(Icons.house_rounded),
+                                Text('housing'.tr),
                               ],
                             ),
                           ),
                           DropdownMenuItem(
-                            value: 'Transportation',
+                            value: 'transportation',
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.emoji_transportation_rounded),
-                                Text('Transportation'),
+                                const Icon(Icons.emoji_transportation_rounded),
+                                Text('transportation'.tr),
                               ],
                             ),
                           ),
                           DropdownMenuItem(
-                            value: 'Food',
+                            value: 'food',
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.fastfood_rounded),
-                                Text('Food'),
+                                const Icon(Icons.fastfood_rounded),
+                                Text('food'.tr),
                               ],
                             ),
                           ),
                           DropdownMenuItem(
-                            value: 'Health and Medical',
+                            value: 'health_and_medical',
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.add_box_rounded),
-                                Text('Health and Medical'),
+                                const Icon(Icons.add_box_rounded),
+                                Text('health_and_medical'.tr),
                               ],
                             ),
                           ),
                           DropdownMenuItem(
-                            value: 'Personal Care',
+                            value: 'personal_care',
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.person_rounded),
-                                Text('Personal Care'),
+                                const Icon(Icons.person_rounded),
+                                Text('personal_care'.tr),
                               ],
                             ),
                           ),
                           DropdownMenuItem(
-                            value: 'Entertainment',
+                            value: 'entertainment',
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.attractions_rounded),
-                                Text('Entertainment'),
+                                const Icon(Icons.attractions_rounded),
+                                Text('entertainment'.tr),
                               ],
                             ),
                           ),
                           DropdownMenuItem(
-                            value: 'Debt Payments',
+                            value: 'debt_payments',
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.money_off_csred_rounded),
-                                Text('Debt Payments'),
+                                const Icon(Icons.money_off_csred_rounded),
+                                Text('debt_payments'.tr),
                               ],
                             ),
                           ),
                           DropdownMenuItem(
-                            value: 'Education',
+                            value: 'education',
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.menu_book),
-                                Text('Education'),
+                                const Icon(Icons.menu_book),
+                                Text('education'.tr),
                               ],
                             ),
                           ),
                           DropdownMenuItem(
-                            value: 'Clothing and Accessories',
+                            value: 'clothing_and_accessories',
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.checkroom_rounded),
-                                Text('Clothing and Accessories'),
+                                const Icon(Icons.checkroom_rounded),
+                                Text('clothing_and_accessories'.tr),
                               ],
                             ),
                           ),
                           DropdownMenuItem(
-                            value: 'Savings and Investments',
+                            value: 'savings_and_investments',
                             child: Row(
                               children: <Widget>[
-                                Icon(Icons.savings_outlined),
-                                Text('Savings and Investments'),
+                                const Icon(Icons.savings_outlined),
+                                Text('savings_and_investments'.tr),
                               ],
                             ),
                           ),
@@ -211,7 +211,7 @@ class _WalletState extends State<Wallet> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 7.0),
                       child: Text(
-                        'NAME',
+                        'name'.tr,
                         style: GoogleFonts.inter(
                           textStyle: const TextStyle(
                               fontSize: 17,
@@ -234,7 +234,7 @@ class _WalletState extends State<Wallet> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 7.0),
                       child: Text(
-                        'AMOUNT',
+                        'amount'.tr,
                         style: GoogleFonts.inter(
                           textStyle: const TextStyle(
                               fontSize: 17,
@@ -258,7 +258,7 @@ class _WalletState extends State<Wallet> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 7.0),
                       child: Text(
-                        'DATE',
+                        'date'.tr,
                         style: GoogleFonts.inter(
                           textStyle: const TextStyle(
                               fontSize: 17,
@@ -294,9 +294,9 @@ class _WalletState extends State<Wallet> {
                   width: 300,
                   child: ElevatedButton(
                     onPressed: createExpense,
-                    child: const Text(
-                      'Add',
-                      style: TextStyle(
+                    child: Text(
+                      'add'.tr,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.w400,

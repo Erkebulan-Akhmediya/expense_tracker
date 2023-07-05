@@ -47,145 +47,107 @@ class _WeekState extends State<Week> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 60, right: 30, bottom: 20, left: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          AspectRatio(
-            aspectRatio: 1.7,
-            child: FutureBuilder(
-              future: _expenseController.weeklyStats(expenses),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return LineChart(
-                    LineChartData(
-                      minX: 0,
-                      minY: 0,
-                      maxX: 6,
-                      maxY: maxSpentDay(snapshot.data!),
-                      titlesData: FlTitlesData(
-                        show: true,
-                        rightTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        topTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        leftTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        bottomTitles: AxisTitles(
-                          sideTitles: SideTitles(
-                            reservedSize: 50,
-                            showTitles: true,
-                            interval: 1,
-                            getTitlesWidget: (double value, TitleMeta meta) {
-                              String text;
-
-                              switch (value.toInt()) {
-                                case 0:
-                                  text = 'monday'.tr;
-                                  break;
-                                case 1:
-                                  text = 'tuesday'.tr;
-                                  break;
-                                case 2:
-                                  text = 'wednesday'.tr;
-                                  break;
-                                case 3:
-                                  text = 'thursday'.tr;
-                                  break;
-                                case 4:
-                                  text = 'friday'.tr;
-                                  break;
-                                case 5:
-                                  text = 'saturday'.tr;
-                                  break;
-                                case 6:
-                                  text = 'sunday'.tr;
-                                  break;
-                                default:
-                                  return Container();
-                              }
-
-                              return Container(
-                                margin: const EdgeInsets.only(top: 20),
-                                child: Text(
-                                  text,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                      gridData: const FlGridData(
-                        show: false,
-                      ),
-                      borderData: FlBorderData(
-                        show: false,
-                      ),
-                      lineBarsData: [
-                        LineChartBarData(
-                          dotData: const FlDotData(
-                            show: false,
-                          ),
-                          isCurved: false,
-                          spots: snapshot.data!,
-                          color: Theme.of(context).primaryColor,
-                          belowBarData: BarAreaData(
-                            show: true,
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              stops: const [0.9, 1],
-                              colors: [
-                                Theme.of(context).primaryColor.withOpacity(0.5),
-                                Colors.white,
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 15, top: 20),
-            child: Text(
-              'top_spending_categories'.tr,
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyMedium?.color,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          FutureBuilder(
-            future: expenses,
+    return ListView(
+      padding: const EdgeInsets.only(top: 60, right: 30, bottom: 10, left: 30),
+      // crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        AspectRatio(
+          aspectRatio: 1.7,
+          child: FutureBuilder(
+            future: _expenseController.weeklyStats(expenses),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return FutureBuilder(
-                  future: _expenseController.getExpenses(snapshot.data!),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return Column(
-                        children: _expenseController.top4WeeklyCategories(snapshot.data!),
-                      );
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
+                return LineChart(
+                  LineChartData(
+                    minX: 0,
+                    minY: 0,
+                    maxX: 6,
+                    maxY: maxSpentDay(snapshot.data!),
+                    titlesData: FlTitlesData(
+                      show: true,
+                      rightTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      topTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      leftTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          reservedSize: 50,
+                          showTitles: true,
+                          interval: 1,
+                          getTitlesWidget: (double value, TitleMeta meta) {
+                            String text;
+
+                            switch (value.toInt()) {
+                              case 0:
+                                text = 'monday'.tr;
+                                break;
+                              case 1:
+                                text = 'tuesday'.tr;
+                                break;
+                              case 2:
+                                text = 'wednesday'.tr;
+                                break;
+                              case 3:
+                                text = 'thursday'.tr;
+                                break;
+                              case 4:
+                                text = 'friday'.tr;
+                                break;
+                              case 5:
+                                text = 'saturday'.tr;
+                                break;
+                              case 6:
+                                text = 'sunday'.tr;
+                                break;
+                              default:
+                                return Container();
+                            }
+
+                            return Container(
+                              margin: const EdgeInsets.only(top: 20),
+                              child: Text(
+                                text,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    gridData: const FlGridData(
+                      show: false,
+                    ),
+                    borderData: FlBorderData(
+                      show: false,
+                    ),
+                    lineBarsData: [
+                      LineChartBarData(
+                        dotData: const FlDotData(
+                          show: false,
+                        ),
+                        isCurved: false,
+                        spots: snapshot.data!,
+                        color: Theme.of(context).primaryColor,
+                        belowBarData: BarAreaData(
+                          show: true,
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            stops: const [0.9, 1],
+                            colors: [
+                              Theme.of(context).primaryColor.withOpacity(0.5),
+                              Colors.white,
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               } else {
                 return const Center(
@@ -194,8 +156,44 @@ class _WeekState extends State<Week> {
               }
             },
           ),
-        ],
-      ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(bottom: 15, top: 20),
+          child: Text(
+            'top_spending_categories'.tr,
+            style: TextStyle(
+              color: Theme.of(context).textTheme.bodyMedium?.color,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        FutureBuilder(
+          future: expenses,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return FutureBuilder(
+                future: _expenseController.getExpenses(snapshot.data!),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Column(
+                      children: _expenseController.top4WeeklyCategories(snapshot.data!),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
+      ],
     );
   }
 }

@@ -192,17 +192,17 @@ class ExpenseController extends GetxController {
 
   List<Widget> top4WeeklyCategories(List<ExpenseModel> expenses) {
     Map<String, double> categories = {
-      'Uncategorized': 0,
-      'Housing': 0,
-      'Transportation': 0,
-      'Food': 0,
-      'Health and Medical': 0,
-      'Personal Care': 0,
-      'Entertainment': 0,
-      'Debt Payments': 0,
-      'Education': 0,
-      'Clothing and Accessories': 0,
-      'Savings and Investments': 0,
+      'uncategorized': 0,
+      'housing': 0,
+      'transportation': 0,
+      'food': 0,
+      'health_and_medical': 0,
+      'personal_care': 0,
+      'entertainment': 0,
+      'debt_payments': 0,
+      'education': 0,
+      'clothing_and_accessories': 0,
+      'savings_and_investments': 0,
     };
 
     List<Widget> widgets = [];
@@ -281,17 +281,17 @@ class ExpenseController extends GetxController {
 
   List<Widget> top4MonthlyCategories(List<ExpenseModel> expenses) {
     Map<String, double> categories = {
-      'Uncategorized': 0,
-      'Housing': 0,
-      'Transportation': 0,
-      'Food': 0,
-      'Health and Medical': 0,
-      'Personal Care': 0,
-      'Entertainment': 0,
-      'Debt Payments': 0,
-      'Education': 0,
-      'Clothing and Accessories': 0,
-      'Savings and Investments': 0,
+      'uncategorized': 0,
+      'housing': 0,
+      'transportation': 0,
+      'food': 0,
+      'health_and_medical': 0,
+      'personal_care': 0,
+      'entertainment': 0,
+      'debt_payments': 0,
+      'education': 0,
+      'clothing_and_accessories': 0,
+      'savings_and_investments': 0,
     };
 
     List<Widget> widgets = [];
@@ -370,17 +370,17 @@ class ExpenseController extends GetxController {
 
   List<Widget> top4YearlyCategories(List<ExpenseModel> expenses) {
     Map<String, double> categories = {
-      'Uncategorized': 0,
-      'Housing': 0,
-      'Transportation': 0,
-      'Food': 0,
-      'Health and Medical': 0,
-      'Personal Care': 0,
-      'Entertainment': 0,
-      'Debt Payments': 0,
-      'Education': 0,
-      'Clothing and Accessories': 0,
-      'Savings and Investments': 0,
+      'uncategorized': 0,
+      'housing': 0,
+      'transportation': 0,
+      'food': 0,
+      'health_and_medical': 0,
+      'personal_care': 0,
+      'entertainment': 0,
+      'debt_payments': 0,
+      'education': 0,
+      'clothing_and_accessories': 0,
+      'savings_and_investments': 0,
     };
 
     // calculating categories

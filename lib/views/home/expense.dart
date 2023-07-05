@@ -15,17 +15,17 @@ class Expense extends StatefulWidget {
   final double amount;
 
   final Map<String, IconData> icons = const {
-    'Uncategorized': Icons.attach_money_rounded,
-    'Housing': Icons.house_rounded,
-    'Transportation': Icons.emoji_transportation_rounded,
-    'Food': Icons.fastfood_rounded,
-    'Health and Medical': Icons.add_box_rounded,
-    'Personal Care': Icons.person_rounded,
-    'Entertainment': Icons.attractions_rounded,
-    'Debt Payments': Icons.money_off_csred_rounded,
-    'Education': Icons.menu_book,
-    'Clothing and Accessories': Icons.checkroom_rounded,
-    'Savings and Investments': Icons.savings_outlined,
+    'uncategorized': Icons.attach_money_rounded,
+    'housing': Icons.house_rounded,
+    'transportation': Icons.emoji_transportation_rounded,
+    'food': Icons.fastfood_rounded,
+    'health_and_medical': Icons.add_box_rounded,
+    'personal_care': Icons.person_rounded,
+    'entertainment': Icons.attractions_rounded,
+    'debt_payments': Icons.money_off_csred_rounded,
+    'education': Icons.menu_book,
+    'clothing_and_accessories': Icons.checkroom_rounded,
+    'savings_and_investments': Icons.savings_outlined,
   };
 
   @override

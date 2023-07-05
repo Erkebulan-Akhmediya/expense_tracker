@@ -47,36 +47,34 @@ class _YearState extends State<Year> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 60, right: 30, bottom: 20, left: 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          AspectRatio(
-            aspectRatio: 1.7,
-            child: FutureBuilder(
-              future: _expenseController.yearlyStats(expenses),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return LineChart(
-                    LineChartData(
-                      minX: 1,
-                      minY: 0,
-                      maxX: 12,
-                      maxY: maxSpentMonth(snapshot.data!),
-                      titlesData: FlTitlesData(
-                        show: true,
-                        rightTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        topTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        leftTitles: const AxisTitles(
-                          sideTitles: SideTitles(showTitles: false),
-                        ),
-                        bottomTitles: AxisTitles(
-                          sideTitles: SideTitles(
+    return ListView(
+      padding: const EdgeInsets.only(top: 60, right: 30, bottom: 10, left: 30),
+      children: <Widget>[
+        AspectRatio(
+          aspectRatio: 1.7,
+          child: FutureBuilder(
+            future: _expenseController.yearlyStats(expenses),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return LineChart(
+                  LineChartData(
+                    minX: 1,
+                    minY: 0,
+                    maxX: 12,
+                    maxY: maxSpentMonth(snapshot.data!),
+                    titlesData: FlTitlesData(
+                      show: true,
+                      rightTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      topTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      leftTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
                             showTitles: true,
                             reservedSize: 50,
 
@@ -132,75 +130,38 @@ class _YearState extends State<Year> {
                                 ),
                               );
                             }
-                          ),
                         ),
                       ),
-                      gridData: const FlGridData(
-                        show: false,
-                      ),
-                      borderData: FlBorderData(
-                        show: false,
-                      ),
-                      lineBarsData: [
-                        LineChartBarData(
-                          isCurved: false,
-                          dotData: const FlDotData(
-                            show: false,
-                          ),
-                          color: Theme.of(context).primaryColor,
-                          spots: snapshot.data!,
-                          belowBarData: BarAreaData(
-                            show: true,
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              stops: const [0.9, 1],
-                              colors: [
-                                Theme.of(context).primaryColor.withOpacity(0.5),
-                                Colors.white,
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
-                  );
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 15, top: 20),
-            child: Text(
-              'top_spending_categories'.tr,
-              style: TextStyle(
-                color: Theme.of(context).textTheme.bodyMedium?.color,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          FutureBuilder(
-            future: expenses,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return FutureBuilder(
-                  future: _expenseController.getExpenses(snapshot.data!),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return Column(
-                        children: _expenseController.top4YearlyCategories(snapshot.data!),
-                      );
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
+                    gridData: const FlGridData(
+                      show: false,
+                    ),
+                    borderData: FlBorderData(
+                      show: false,
+                    ),
+                    lineBarsData: [
+                      LineChartBarData(
+                        isCurved: false,
+                        dotData: const FlDotData(
+                          show: false,
+                        ),
+                        color: Theme.of(context).primaryColor,
+                        spots: snapshot.data!,
+                        belowBarData: BarAreaData(
+                          show: true,
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            stops: const [0.9, 1],
+                            colors: [
+                              Theme.of(context).primaryColor.withOpacity(0.5),
+                              Colors.white,
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               } else {
                 return const Center(
@@ -209,8 +170,44 @@ class _YearState extends State<Year> {
               }
             },
           ),
-        ],
-      ),
+        ),
+        Container(
+          margin: const EdgeInsets.only(bottom: 15, top: 20),
+          child: Text(
+            'top_spending_categories'.tr,
+            style: TextStyle(
+              color: Theme.of(context).textTheme.bodyMedium?.color,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        FutureBuilder(
+          future: expenses,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              return FutureBuilder(
+                future: _expenseController.getExpenses(snapshot.data!),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Column(
+                      children: _expenseController.top4YearlyCategories(snapshot.data!),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
+      ],
     );
   }
 

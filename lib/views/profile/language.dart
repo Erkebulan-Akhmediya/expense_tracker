@@ -11,17 +11,24 @@ class Language extends StatelessWidget {
         title: Text('language'.tr),
       ),
       body: ListView(
+        padding: const EdgeInsets.all(20.0),
         children: <Widget>[
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.updateLocale(const Locale('en', 'UK'));
+            },
             child: Text('english'.tr),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.updateLocale(const Locale('kk', 'KK'));
+            },
             child: Text('kazakh'.tr),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.updateLocale(const Locale('ru', 'RU'));
+            },
             child: Text('russian'.tr),
           ),
         ],

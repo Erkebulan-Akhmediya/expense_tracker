@@ -111,7 +111,8 @@ class MyApp extends StatelessWidget {
       theme: primaryTheme,
       darkTheme: darkTheme,
       translations: Internationalization(),
-      locale: const Locale('en', 'UK'),
+      locale: Get.deviceLocale,
+      fallbackLocale: const Locale('en', 'UK'),
       home: const Root(),
     );
   }
