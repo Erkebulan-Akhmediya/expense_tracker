@@ -60,6 +60,7 @@ class _ExpenseState extends State<Expense> {
                 children: <Widget>[
                   Text(
                     widget.name,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15,

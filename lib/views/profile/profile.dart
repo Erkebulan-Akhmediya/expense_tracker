@@ -8,8 +8,8 @@ import 'package:skeletons/skeletons.dart';
 class Profile extends StatelessWidget {
   Profile({super.key});
 
-  final AuthController _authController = Get.put(AuthController());
-  final UserController _userController = Get.put(UserController());
+  final AuthController _authController = Get.find<AuthController>();
+  final UserController _userController = Get.find<UserController>();
 
   Future<void> signOut() async {
     await AuthController().signOut();
@@ -37,7 +37,7 @@ class Profile extends StatelessWidget {
                     ),
                   ),
                   StreamBuilder(
-                    stream: _userController.getUsername(_authController.currentUser?.uid),
+                    stream: _userController.getUser(_authController.currentUser!.uid),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return Text(

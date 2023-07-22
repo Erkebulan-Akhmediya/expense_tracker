@@ -16,17 +16,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentPageIndex = 0;
 
-  final List<Widget> _pages = [
-    const Home(),
-    const Statistics(),
-    const Wallet(),
-    Profile(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_currentPageIndex],
+      body: IndexedStack(
+        index: _currentPageIndex,
+        children: <Widget>[
+          Home(),
+          Statistics(),
+          const Wallet(),
+          Profile(),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _currentPageIndex,

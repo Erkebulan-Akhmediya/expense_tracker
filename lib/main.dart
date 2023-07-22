@@ -17,7 +17,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  ThemeData primaryTheme = ThemeData(
+  final ThemeData primaryTheme = ThemeData(
     primaryColor: Colors.green,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.green,
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
     ),
   );
 
-  ThemeData darkTheme = ThemeData(
+  final ThemeData darkTheme = ThemeData(
     primaryColor: const Color(0xFFBB86Fc),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.black,
@@ -113,7 +113,7 @@ class MyApp extends StatelessWidget {
       translations: Internationalization(),
       locale: Get.deviceLocale,
       fallbackLocale: const Locale('en', 'UK'),
-      home: const Root(),
+      home: Root(),
     );
   }
 }

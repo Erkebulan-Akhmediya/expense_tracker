@@ -3,7 +3,6 @@ import 'package:expense_tracker/models/user.model.dart';
 import 'package:get/get.dart';
 
 class UserController extends GetxController {
-  UserController();
 
   final _db = FirebaseFirestore.instance;
 
@@ -11,25 +10,20 @@ class UserController extends GetxController {
     await _db.collection('Users').doc(user.id).set(user.toMap());
   }
 
-  Stream<UserModel> getUsername(String? uid) {
+  Stream<UserModel> getUser(String uid) {
     DocumentReference docRef = _db.collection('Users').doc(uid);
-    Stream<UserModel> docSnap = docRef.snapshots().map(
-      (DocumentSnapshot snapshot) => UserModel(
-        id: uid.toString(),
-        username: snapshot['username'],
-        email: snapshot['email'],
-        password: snapshot['password'],
-        expenses: snapshot['expenses'],
-      ),
+    Stream<UserModel> user = docRef.snapshots().map(
+      (DocumentSnapshot snapshot) {
+        return UserModel(
+          id: uid.toString(),
+          username: snapshot['username'],
+          email: snapshot['email'],
+          password: snapshot['password'],
+          expenses: List<String>.from(snapshot['expenses']),
+        );
+      }
     );
 
-    return docSnap;
-  }
-
-  void addExpenseToUser(String? uid, String expenseId) {
-    DocumentReference docRef = _db.collection('Users').doc(uid);
-    docRef.update({
-      'expenses': FieldValue.arrayUnion([expenseId]),
-    });
+    return user;
   }
 }

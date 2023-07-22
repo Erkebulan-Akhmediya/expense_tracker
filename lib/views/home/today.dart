@@ -1,30 +1,17 @@
+import 'package:expense_tracker/controllers/auth.controller.dart';
 import 'package:expense_tracker/controllers/expense.controller.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:expense_tracker/controllers/user.controller.dart';
+import 'package:expense_tracker/models/user.model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:skeletons/skeletons.dart';
 
-import '../../controllers/auth.controller.dart';
+class Today extends StatelessWidget {
+  Today({super.key});
 
-class Today extends StatefulWidget {
-  const Today({super.key});
-
-  @override
-  State<Today> createState() => _TodayState();
-
-}
-
-class _TodayState extends State<Today> {
-  late Future<List> expenses;
-
-  final ExpenseController _expenseController = Get.put(ExpenseController());
-  final User? user = Get.put(AuthController()).currentUser;
-
-  @override
-  void initState() {
-    super.initState();
-    expenses = _expenseController.getUserExpenses(user!.uid);
-  }
+  final ExpenseController _expenseController = Get.find<ExpenseController>();
+  final AuthController _authController = Get.find<AuthController>();
+  final UserController _userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +28,16 @@ class _TodayState extends State<Today> {
               'today'.tr,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
-            FutureBuilder<double>(
-              future: _expenseController.todayExpenses(expenses),
+            StreamBuilder<UserModel>(
+              stream: _userController.getUser(
+                _authController.currentUser!.uid,
+              ),
               builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.hasData) {
                   return Text(
-                    '\$${snapshot.data}',
+                    '\$${
+                      _expenseController.todayExpenses(snapshot.data!.expenses)
+                    }',
                     style: TextStyle(
                       fontSize: 45,
                       color: Theme.of(context).textTheme.bodyLarge?.color,

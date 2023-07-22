@@ -1,24 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:expense_tracker/controllers/expense.controller.dart';
+import 'package:expense_tracker/models/user.model.dart';
+import 'package:expense_tracker/views/statictics/category.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/auth.controller.dart';
-import '../../controllers/expense.controller.dart';
+class Month extends StatelessWidget {
+  Month({super.key, required this.user});
 
-class Month extends StatefulWidget {
-  const Month({super.key});
+  final UserModel user;
 
-  @override
-  State<Month> createState() => _MonthState();
-
-}
-
-class _MonthState extends State<Month> {
-  late Future<List> expenses;
-
-  final ExpenseController _expenseController = Get.put(ExpenseController());
-  final User? user = Get.put(AuthController()).currentUser;
+  final ExpenseController _expenseController = Get.find<ExpenseController>();
 
   double daysInMonth() {
     DateTime now = DateTime.now();
@@ -44,120 +36,120 @@ class _MonthState extends State<Month> {
     return max;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    expenses = _expenseController.getUserExpenses(user!.uid);
+  List<Widget> _top4monthlyCategories(List<MapEntry<String, double>> list) {
+    List<Widget> widgets = [];
+
+    for (MapEntry<String, double> mapEntry in list) {
+      widgets.add(
+        Category(
+          category: mapEntry.key,
+          amount: mapEntry.value,
+        ),
+      );
+    }
+
+    return widgets;
   }
 
   @override
   Widget build(BuildContext context) {
+    List<String> expenses = user.expenses;
+    List<FlSpot> flSpotList = _expenseController.monthlyStats(expenses);
     return ListView(
       padding: const EdgeInsets.only(top: 60, right: 30, bottom: 10, left: 30),
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1.7,
-          child: FutureBuilder(
-            future: _expenseController.monthlyStats(expenses),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                return LineChart(
-                  LineChartData(
-                    minX: 1,
-                    minY: 0,
-                    maxX: daysInMonth(),
-                    maxY: maxSpentDay(snapshot.data!),
-                    titlesData: FlTitlesData(
-                      show: true,
-                      rightTitles: const AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      topTitles: const AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      leftTitles: const AxisTitles(
-                        sideTitles: SideTitles(showTitles: false),
-                      ),
-                      bottomTitles: AxisTitles(
-                        sideTitles: SideTitles(
-                          showTitles: true,
-                          reservedSize: 50,
-                          getTitlesWidget: (double value, TitleMeta meta) {
-                            String text;
+          child: LineChart(
+            LineChartData(
+              minX: 1,
+              minY: 0,
+              maxX: daysInMonth(),
+              maxY: maxSpentDay(flSpotList),
+              titlesData: FlTitlesData(
+                show: true,
+                rightTitles: const AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                topTitles: const AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                leftTitles: const AxisTitles(
+                  sideTitles: SideTitles(showTitles: false),
+                ),
+                bottomTitles: AxisTitles(
+                  sideTitles: SideTitles(
+                    showTitles: true,
+                    reservedSize: 50,
+                    getTitlesWidget: (double value, TitleMeta meta) {
+                      String text;
 
-                            switch (value.toInt()) {
-                              case 1:
-                                text = '1';
-                                break;
-                              case 5:
-                                text = '5';
-                                break;
-                              case 10:
-                                text = '10';
-                                break;
-                              case 15:
-                                text = '15';
-                                break;
-                              case 20:
-                                text = '20';
-                                break;
-                              case 25:
-                                text = '25';
-                                break;
-                              case 30:
-                                text = '30';
-                                break;
-                              default:
-                                return Container();
-                            }
+                      switch (value.toInt()) {
+                        case 1:
+                          text = '1';
+                          break;
+                        case 5:
+                          text = '5';
+                          break;
+                        case 10:
+                          text = '10';
+                          break;
+                        case 15:
+                          text = '15';
+                          break;
+                        case 20:
+                          text = '20';
+                          break;
+                        case 25:
+                          text = '25';
+                          break;
+                        case 30:
+                          text = '30';
+                          break;
+                        default:
+                          return Container();
+                      }
 
-                            return Container(
-                              margin: const EdgeInsets.only(top: 20),
-                              child: Text(
-                                text,
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            );
-                          },
+                      return Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: Text(
+                          text,
+                          style: Theme.of(context).textTheme.bodyMedium,
                         ),
-                      ),
-                    ),
-                    gridData: const FlGridData(
-                      show: false,
-                    ),
-                    borderData: FlBorderData(
-                      show: false,
-                    ),
-                    lineBarsData: [
-                      LineChartBarData(
-                        dotData: const FlDotData(
-                          show: false,
-                        ),
-                        color: Theme.of(context).primaryColor,
-                        isCurved: false,
-                        spots: snapshot.data!,
-                        belowBarData: BarAreaData(
-                          show: true,
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            stops: const [0.9, 1],
-                            colors: [
-                              Theme.of(context).primaryColor.withOpacity(0.5),
-                              Colors.white,
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
-                );
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-            },
+                ),
+              ),
+              gridData: const FlGridData(
+                show: false,
+              ),
+              borderData: FlBorderData(
+                show: false,
+              ),
+              lineBarsData: [
+                LineChartBarData(
+                  dotData: const FlDotData(
+                    show: false,
+                  ),
+                  color: Theme.of(context).primaryColor,
+                  isCurved: false,
+                  spots: flSpotList,
+                  belowBarData: BarAreaData(
+                    show: true,
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      stops: const [0.9, 1],
+                      colors: [
+                        Theme.of(context).primaryColor.withOpacity(0.5),
+                        Colors.white,
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         Container(
@@ -171,30 +163,10 @@ class _MonthState extends State<Month> {
             ),
           ),
         ),
-        FutureBuilder(
-          future: expenses,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return FutureBuilder(
-                future: _expenseController.getExpenses(snapshot.data!),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return Column(
-                      children: _expenseController.top4MonthlyCategories(snapshot.data!),
-                    );
-                  } else {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
+        Column(
+          children: _top4monthlyCategories(
+            _expenseController.top4MonthlyCategories(expenses),
+          ),
         ),
       ],
     );

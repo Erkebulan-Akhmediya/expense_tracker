@@ -1,15 +1,14 @@
+import 'package:expense_tracker/controllers/auth.controller.dart';
 import 'package:expense_tracker/views/profile/account_info.dart';
 import 'package:expense_tracker/views/profile/appearance.dart';
 import 'package:expense_tracker/views/profile/language.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/auth.controller.dart';
-
 class Options extends StatelessWidget {
   Options({super.key});
 
-  final AuthController _authController = Get.put(AuthController());
+  final AuthController _authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class Options extends StatelessWidget {
                     size: 40,
                   ),
                 ),
-                Text('account_info'.tr),
+                Text('account_info'.tr,),
               ],
             ),
           ),

@@ -3,7 +3,7 @@ class UserModel {
   final String username;
   final String email;
   final String password;
-  final List<dynamic> expenses;
+  final List<String> expenses;
 
   UserModel({
     required this.id,

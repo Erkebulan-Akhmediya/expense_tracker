@@ -17,4 +17,11 @@ class ExpenseModel {
     'amount': amount,
     'date': date,
   };
+
+  factory ExpenseModel.fromMap(Map<String, dynamic> expenseMap) => ExpenseModel(
+    category: expenseMap['category'],
+    name: expenseMap['name'],
+    amount: expenseMap['amount'],
+    date: expenseMap['date'],
+  );
 }

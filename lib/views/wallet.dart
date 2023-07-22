@@ -1,3 +1,4 @@
+import 'package:expense_tracker/controllers/auth.controller.dart';
 import 'package:expense_tracker/controllers/expense.controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,9 +20,12 @@ class _WalletState extends State<Wallet> {
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
 
+  final AuthController _authController = Get.find<AuthController>();
+
   Future<void> createExpense() async {
     try {
       await ExpenseController().createExpense(
+        _authController.currentUser!.uid,
         ExpenseModel(
           category: _selectedCategory,
           name: _nameController.text,

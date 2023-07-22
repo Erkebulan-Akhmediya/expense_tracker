@@ -17,7 +17,7 @@ class Balance extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           color: Theme.of(context).primaryColor,
         ),
-        child: const Column(
+        child: Column(
           children: [
             Today(),
             WeekMonth(),

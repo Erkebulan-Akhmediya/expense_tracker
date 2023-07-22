@@ -1,32 +1,35 @@
 import 'package:expense_tracker/controllers/auth.controller.dart';
 import 'package:expense_tracker/controllers/expense.controller.dart';
 import 'package:expense_tracker/controllers/user.controller.dart';
+import 'package:expense_tracker/models/expense.model.dart';
 import 'package:expense_tracker/models/user.model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:expense_tracker/views/home/balance.dart';
+import 'package:expense_tracker/views/home/expense.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'balance.dart';
+class Home extends StatelessWidget {
+  Home({Key? key}) : super(key: key);
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+  final UserController _userController = Get.find<UserController>();
+  final ExpenseController _expenseController = Get.find<ExpenseController>();
+  final AuthController _authController = Get.find<AuthController>();
 
-  @override
-  State<Home> createState() => _HomeState();
+  List<Widget> _last4expenses(List<ExpenseModel> expenses) {
+    List<Widget> widgets = [];
 
-}
+    for (ExpenseModel expense in expenses) {
+      widgets.add(
+        Expense(
+          category: expense.category,
+          name: expense.name,
+          date: expense.date,
+          amount: expense.amount,
+        ),
+      );
+    }
 
-class _HomeState extends State<Home> {
-  final UserController _userController = Get.put(UserController());
-  final ExpenseController _expenseController = Get.put(ExpenseController());
-  final User? user = Get.put(AuthController()).currentUser;
-
-  late Future<List> expenses;
-
-  @override
-  void initState() {
-    super.initState();
-    expenses = _expenseController.getUserExpenses(user!.uid);
+    return widgets;
   }
 
   @override
@@ -45,7 +48,9 @@ class _HomeState extends State<Home> {
               ),
             ),
             StreamBuilder<UserModel>(
-              stream: _userController.getUsername(user?.uid),
+              stream: _userController.getUser(
+                _authController.currentUser!.uid,
+              ),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Text(
@@ -87,23 +92,17 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
-          FutureBuilder(
-            future: expenses,
+          StreamBuilder(
+            stream: _userController.getUser(
+              _authController.currentUser!.uid,
+            ),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return FutureBuilder(
-                  future: _expenseController.getExpenses(snapshot.data!),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Column(
-                        children: _expenseController.last4Expenses(snapshot.data!),
-                      );
-                    } else {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
+                List<ExpenseModel> expenses = _expenseController.last4Expenses(
+                  snapshot.data!.expenses,
+                );
+                return Column(
+                  children: _last4expenses(expenses),
                 );
               } else {
                 return const Center(
