@@ -33,7 +33,9 @@ class Options extends StatelessWidget {
                     size: 40,
                   ),
                 ),
-                Text('account_info'.tr,),
+                Flexible(
+                  child: Text('account_info'.tr),
+                ),
               ],
             ),
           ),

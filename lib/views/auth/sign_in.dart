@@ -108,7 +108,9 @@ class _SignInState extends State<SignIn> {
                 ),
                 Row(
                   children: <Widget>[
-                    Text('swipe_left'.tr),
+                    Flexible(
+                      child: Text('swipe_left'.tr),
+                    ),
                   ],
                 ),
               ],

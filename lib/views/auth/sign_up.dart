@@ -142,7 +142,9 @@ class _SignUpState extends State<SignUp> {
                 ),
                 Row(
                   children: <Widget>[
-                    Text('swipe_right'.tr)
+                    Flexible(
+                      child: Text('swipe_right'.tr),
+                    )
                   ],
                 ),
               ],

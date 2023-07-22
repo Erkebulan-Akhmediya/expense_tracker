@@ -105,7 +105,9 @@ class _WalletState extends State<Wallet> {
                             child: Row(
                               children: <Widget>[
                                 const Icon(Icons.attach_money_rounded),
-                                Text('uncategorized'.tr),
+                                Flexible(
+                                  child: Text('uncategorized'.tr),
+                                ),
                               ],
                             ),
                           ),
@@ -114,7 +116,9 @@ class _WalletState extends State<Wallet> {
                             child: Row(
                               children: <Widget>[
                                 const Icon(Icons.house_rounded),
-                                Text('housing'.tr),
+                                Flexible(
+                                  child: Text('housing'.tr),
+                                ),
                               ],
                             ),
                           ),
@@ -123,7 +127,9 @@ class _WalletState extends State<Wallet> {
                             child: Row(
                               children: <Widget>[
                                 const Icon(Icons.emoji_transportation_rounded),
-                                Text('transportation'.tr),
+                                Flexible(
+                                  child: Text('transportation'.tr),
+                                ),
                               ],
                             ),
                           ),
@@ -132,7 +138,9 @@ class _WalletState extends State<Wallet> {
                             child: Row(
                               children: <Widget>[
                                 const Icon(Icons.fastfood_rounded),
-                                Text('food'.tr),
+                                Flexible(
+                                  child: Text('food'.tr),
+                                ),
                               ],
                             ),
                           ),
@@ -141,7 +149,9 @@ class _WalletState extends State<Wallet> {
                             child: Row(
                               children: <Widget>[
                                 const Icon(Icons.add_box_rounded),
-                                Text('health_and_medical'.tr),
+                                Flexible(
+                                  child: Text('health_and_medical'.tr),
+                                ),
                               ],
                             ),
                           ),
@@ -150,7 +160,9 @@ class _WalletState extends State<Wallet> {
                             child: Row(
                               children: <Widget>[
                                 const Icon(Icons.person_rounded),
-                                Text('personal_care'.tr),
+                                Flexible(
+                                  child: Text('personal_care'.tr),
+                                ),
                               ],
                             ),
                           ),
@@ -159,7 +171,9 @@ class _WalletState extends State<Wallet> {
                             child: Row(
                               children: <Widget>[
                                 const Icon(Icons.attractions_rounded),
-                                Text('entertainment'.tr),
+                                Flexible(
+                                  child: Text('entertainment'.tr),
+                                ),
                               ],
                             ),
                           ),
@@ -168,7 +182,9 @@ class _WalletState extends State<Wallet> {
                             child: Row(
                               children: <Widget>[
                                 const Icon(Icons.money_off_csred_rounded),
-                                Text('debt_payments'.tr),
+                                Flexible(
+                                  child: Text('debt_payments'.tr),
+                                ),
                               ],
                             ),
                           ),
@@ -177,7 +193,9 @@ class _WalletState extends State<Wallet> {
                             child: Row(
                               children: <Widget>[
                                 const Icon(Icons.menu_book),
-                                Text('education'.tr),
+                                Flexible(
+                                  child: Text('education'.tr),
+                                ),
                               ],
                             ),
                           ),
@@ -186,7 +204,9 @@ class _WalletState extends State<Wallet> {
                             child: Row(
                               children: <Widget>[
                                 const Icon(Icons.checkroom_rounded),
-                                Text('clothing_and_accessories'.tr),
+                                Flexible(
+                                  child: Text('clothing_and_accessories'.tr,),
+                                ),
                               ],
                             ),
                           ),
@@ -195,7 +215,9 @@ class _WalletState extends State<Wallet> {
                             child: Row(
                               children: <Widget>[
                                 const Icon(Icons.savings_outlined),
-                                Text('savings_and_investments'.tr),
+                                Flexible(
+                                  child: Text('savings_and_investments'.tr),
+                                ),
                               ],
                             ),
                           ),
