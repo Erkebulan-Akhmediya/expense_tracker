@@ -62,92 +62,97 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Material(
-        elevation: 10,
-        borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-        child: Container(
-          width: 300,
-          height: 500,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                const Icon(
-                  Icons.app_registration_rounded,
-                  size: 40,
-                ),
-                Text(
-                  'sign_up'.tr,
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                _error(),
-                TextField(
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.person_rounded),
-                    labelText: 'username'.tr,
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-                TextField(
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.mail_outline_rounded),
-                    labelText: 'email_address'.tr,
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-                TextField(
-                  obscureText: true,
-                  controller: _passwordController,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.lock_outline_rounded),
-                    labelText: 'password'.tr,
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-                TextField(
-                  obscureText: true,
-                  controller: _passwordVerificationController,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.lock_outline_rounded),
-                    labelText: 'verify_password'.tr,
-                    border: const OutlineInputBorder(),
-                  ),
-                ),
-                Row(
+    return SizedBox(
+      height: MediaQuery.of(context).size.height,
+      child: Center(
+        child: SingleChildScrollView(
+          child: Material(
+            elevation: 10,
+            borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+            child: Container(
+              width: 300,
+              height: 500,
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
-                    Expanded(
-                      child: TextButton(
-                        style: const ButtonStyle(
-                          backgroundColor: MaterialStatePropertyAll(Colors.blue),
-                        ),
-                        onPressed: createUserWithEmailAndPassword,
-                        child: Text(
-                          'sign_up'.tr,
-                          style: const TextStyle(
-                            color: Colors.white,
+                    const Icon(
+                      Icons.app_registration_rounded,
+                      size: 40,
+                    ),
+                    Text(
+                      'sign_up'.tr,
+                      style: const TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    _error(),
+                    TextField(
+                      controller: _usernameController,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.person_rounded),
+                        labelText: 'username'.tr,
+                        border: const OutlineInputBorder(),
+                      ),
+                    ),
+                    TextField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.mail_outline_rounded),
+                        labelText: 'email_address'.tr,
+                        border: const OutlineInputBorder(),
+                      ),
+                    ),
+                    TextField(
+                      obscureText: true,
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.lock_outline_rounded),
+                        labelText: 'password'.tr,
+                        border: const OutlineInputBorder(),
+                      ),
+                    ),
+                    TextField(
+                      obscureText: true,
+                      controller: _passwordVerificationController,
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.lock_outline_rounded),
+                        labelText: 'verify_password'.tr,
+                        border: const OutlineInputBorder(),
+                      ),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: TextButton(
+                            style: const ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(Colors.blue),
+                            ),
+                            onPressed: createUserWithEmailAndPassword,
+                            child: Text(
+                              'sign_up'.tr,
+                              style: const TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Flexible(
+                          child: Text('swipe_right'.tr),
+                        )
+                      ],
                     ),
                   ],
                 ),
-                Row(
-                  children: <Widget>[
-                    Flexible(
-                      child: Text('swipe_right'.tr),
-                    )
-                  ],
-                ),
-              ],
+              ),
             ),
           ),
         ),

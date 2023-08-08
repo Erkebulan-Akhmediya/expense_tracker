@@ -21,59 +21,57 @@ class Profile extends StatelessWidget {
       appBar: AppBar(
         title: Text('profile'.tr),
       ),
-      body: Padding(
+      body: ListView(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: <Widget>[
-            Center(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.all(10.0),
-                    child: Icon(
-                      Icons.person_pin,
-                      size: 100,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                  StreamBuilder(
-                    stream: _userController.getUser(_authController.currentUser!.uid),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Text(
-                          snapshot.data!.username,
-                          style: const TextStyle(
-                            fontSize: 40,
-                          ),
-                        );
-                      } else {
-                        return SkeletonParagraph(
-                          style: const SkeletonParagraphStyle(
-                            lines: 1,
-                          ),
-                        );
-                      }
-                    },
-                  ),
-                  Container(
-                    margin: const EdgeInsets.all(10.0),
-                    child: Text(
-                      _authController.currentUser!.email!,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ),
-                  Divider(
+        children: <Widget>[
+          Center(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.all(10.0),
+                  child: Icon(
+                    Icons.person_pin,
+                    size: 100,
                     color: Theme.of(context).primaryColor,
                   ),
-                  Options(),
-                ],
-              ),
+                ),
+                StreamBuilder(
+                  stream: _userController.getUser(_authController.currentUser!.uid),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        snapshot.data!.username,
+                        style: const TextStyle(
+                          fontSize: 40,
+                        ),
+                      );
+                    } else {
+                      return SkeletonParagraph(
+                        style: const SkeletonParagraphStyle(
+                          lines: 1,
+                        ),
+                      );
+                    }
+                  },
+                ),
+                Container(
+                  margin: const EdgeInsets.all(10.0),
+                  child: Text(
+                    _authController.currentUser!.email!,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ),
+                Divider(
+                  color: Theme.of(context).primaryColor,
+                ),
+                Options(),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
